@@ -30,7 +30,10 @@ CITIES = {
 SOURCES = {
     "livemint": {"label": "Mint (livemint.com) city gold prices", "url": "https://www.livemint.com/gold-prices/{slug}"},
     "goodreturns": {"label": "Goodreturns (Oneindia)", "url": "https://www.goodreturns.in/gold-rates/{slug}.html"},
-    "bankbazaar": {"label": "BankBazaar", "url": "https://www.bankbazaar.com/gold-rate-{slug}.html"},
+    # BankBazaar serves the identical page on partner sub-domains; captures of
+    # any of them are the same published list, so they are read as one source.
+    "bankbazaar": {"label": "BankBazaar", "url": "https://www.bankbazaar.com/gold-rate-{slug}.html",
+                   "mirrors": [f"https://{h}.bankbazaar.com/gold-rate-{{slug}}.html" for h in ("ndtv", "bankdb", "quikrcars", "zigwheels", "11estates", "indianbluebook", "shopelect")]},
 }
 CDX = "https://web.archive.org/cdx/search/cdx?url={url}&from={start}&filter=statuscode:200&collapse=timestamp:8&output=json&fl=timestamp,original"
 WAYBACK = "https://web.archive.org/web/{ts}id_/{url}"  # id_ = original bytes, no toolbar
@@ -188,23 +191,25 @@ def collect_source(city: str, source: str, start: dt.date, today: dt.date, log: 
         log.append(f"{CITIES[city]['name']} / {source}: live page failed — {live_err}; keeping cached data")
 
     # 2. Wayback captures (new ones only); pick roughly one per 7 days since
-    #    each capture lists ~10 days.
-    try:
-        listing = json.loads(http_get(CDX.format(url=url, start=start.strftime("%Y%m%d")), retries=3, timeout=75, pause=2.0) or b"[]")
-        tss = [r[0] for r in listing[1:]]
-    except Exception as e:  # noqa: BLE001
-        tss = []
-        log.append(f"{CITIES[city]['name']} / {source}: Wayback index unavailable ({type(e).__name__})")
+    #    each capture lists ~10 days. Mirror hosts of the same page count too.
+    urls = [url] + [m.format(slug=CITIES[city]["slug"][source]) for m in SOURCES[source].get("mirrors", [])]
+    listed = []  # (ts, page url)
+    for u in urls:
+        try:
+            listing = json.loads(http_get(CDX.format(url=u, start=start.strftime("%Y%m%d")), retries=3, timeout=75, pause=2.0) or b"[]")
+            listed += [(r[0], u) for r in listing[1:]]
+        except Exception as e:  # noqa: BLE001
+            log.append(f"{CITIES[city]['name']} / {source}: Wayback index unavailable for {u.split('/')[2]} ({type(e).__name__})")
     chosen, last_day = [], None
-    for ts in sorted(tss):
+    for ts, u in sorted(listed):
         day = dt.date(int(ts[:4]), int(ts[4:6]), int(ts[6:8]))
         if last_day is None or (day - last_day).days >= 7:
-            chosen.append(ts)
+            chosen.append((ts, u))
             last_day = day
-    todo = [ts for ts in chosen if snaps.get(ts) not in ("ok", "no-rows")][:max_new_snapshots]
-    say(f"  archive: {len(tss)} captures listed, {len(chosen)} chosen (~weekly), {len(todo)} to read now")
-    for n, ts in enumerate(todo, 1):
-        wb = WAYBACK.format(ts=ts, url=url)
+    todo = [(ts, u) for ts, u in chosen if snaps.get(ts) not in ("ok", "no-rows")][:max_new_snapshots]
+    say(f"  archive: {len(listed)} captures listed over {len(urls)} host(s), {len(chosen)} chosen (~weekly), {len(todo)} to read now")
+    for n, (ts, u) in enumerate(todo, 1):
+        wb = WAYBACK.format(ts=ts, url=u)
         if n % 10 == 0 or n == len(todo):
             say(f"  archive: {n}/{len(todo)} ({ts[:8]})")
         try:
@@ -212,7 +217,7 @@ def collect_source(city: str, source: str, start: dt.date, today: dt.date, log: 
             cap = dt.date(int(ts[:4]), int(ts[4:6]), int(ts[6:8]))
             rows, gst = extract_22k(html, cap, ref_per_gram(cap) if ref_per_gram else None)
             captured = f"{ts[:4]}-{ts[4:6]}-{ts[6:8]}T{ts[8:10]}:{ts[10:12]}:{ts[12:14]}Z"
-            add(rows, f"https://web.archive.org/web/{ts}/{url}", captured)
+            add(rows, f"https://web.archive.org/web/{ts}/{u}", captured)
             snaps[ts] = "ok" if rows else "no-rows"
             if gst and not cache.get("gst"):
                 cache["gst"] = gst
@@ -223,7 +228,7 @@ def collect_source(city: str, source: str, start: dt.date, today: dt.date, log: 
     return {
         "url": url, "label": SOURCES[source]["label"], "obs": obs,
         "live_ok": live_ok, "live_error": live_err, "gst_snippets": cache.get("gst", []),
-        "snapshots": {"listed": len(tss), "used": sum(1 for v in snaps.values() if v == "ok"), "no_rows": sum(1 for v in snaps.values() if v == "no-rows"), "errors": sum(1 for v in snaps.values() if v == "error"), "pending": max(0, len([t for t in chosen if snaps.get(t) not in ("ok", "no-rows")]))},
+        "snapshots": {"listed": len(listed), "used": sum(1 for v in snaps.values() if v == "ok"), "no_rows": sum(1 for v in snaps.values() if v == "no-rows"), "errors": sum(1 for v in snaps.values() if v == "error"), "pending": max(0, len([t for t, _ in chosen if snaps.get(t) not in ("ok", "no-rows")]))},
     }
 
 
