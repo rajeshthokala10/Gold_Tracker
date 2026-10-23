@@ -73,7 +73,7 @@ DOMAIN_QUERIES = [
 
 def cdx(q: str):
     try:
-        data = json.loads(http_get(CDX.format(url=q), retries=1, timeout=90) or b"[]")
+        data = json.loads(http_get(CDX.format(url=q), retries=1, timeout=40) or b"[]")
     except Exception as e:  # noqa: BLE001
         return None, f"{type(e).__name__}"
     rows = data[1:] if data else []
@@ -84,7 +84,7 @@ def cdx(q: str):
 
 def live(url: str):
     try:
-        html = http_get("https://www." + url if not url.split("/")[0].count(".") > 1 else "https://" + url, retries=1, timeout=30, browser=True).decode("utf-8", "replace")
+        html = http_get("https://www." + url if not url.split("/")[0].count(".") > 1 else "https://" + url, retries=1, timeout=20, browser=True).decode("utf-8", "replace")
     except Exception as e:  # noqa: BLE001
         return f"live fetch failed: {type(e).__name__}", []
     p = parse_html(html)
