@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>22K Gold Weekly Patterns</title>
+<meta name="description" content="22K gold in Bangalore and Tirupati vs Nippon India ETF Gold BeES: weekly rises and falls, seasonal patterns and historical entry/exit windows over four years. Historical analysis, not a forecast.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="22K Gold Weekly Patterns · Bangalore, Tirupati & Gold BeES">
+<meta property="og:description" content="Weekly rises & falls, seasonal patterns and historical buy/exit windows for 22K gold (Bangalore, Tirupati) and Gold BeES. Historical data only — not a prediction.">
+<meta property="og:image" content="og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#b8860b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='11' width='26' height='12' rx='2' fill='%23d4a017'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-row">
+    <div>
+      <h1>22K Gold Weekly Patterns</h1>
+      <p class="sub">Historical patterns, not forecasts</p>
+    </div>
+    <button id="share" class="btn-icon" aria-label="Share or copy link">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M18 16a3 3 0 0 0-2.4 1.2l-6.7-3.4a3 3 0 0 0 0-1.6l6.7-3.4A3 3 0 1 0 15 7l-6.7 3.4a3 3 0 1 0 0 3.2L15 17a3 3 0 1 0 3-1z"/></svg>
+      <span>Share</span>
+    </button>
+  </div>
+  <div class="seg" role="tablist" aria-label="Instrument" id="inst"></div>
+</header>
+
+<main id="main">
+  <section data-tab="home" id="tab-home"></section>
+  <section data-tab="charts" id="tab-charts" hidden></section>
+  <section data-tab="weekly" id="tab-weekly" hidden></section>
+  <section data-tab="invest" id="tab-invest" hidden></section>
+  <section data-tab="data" id="tab-data" hidden></section>
+</main>
+
+<nav class="tabs" aria-label="Sections" id="tabs">
+  <button data-go="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z"/></svg>Home</button>
+  <button data-go="charts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19h18M5 16l4-5 4 3 6-8" fill="none" stroke-width="2"/></svg>Charts</button>
+  <button data-go="weekly"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v15H4zM4 9h16M9 5v15M14 5v15" fill="none" stroke-width="1.8"/></svg>Weekly</button>
+  <button data-go="invest"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M16 7H10a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6H7" fill="none" stroke-width="2"/></svg>Invest</button>
+  <button data-go="data"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c5 0 8 1.5 8 3s-3 3-8 3-8-1.5-8-3 3-3 8-3zM4 6v12c0 1.5 3 3 8 3s8-1.5 8-3V6M4 12c0 1.5 3 3 8 3s8-1.5 8-3" fill="none" stroke-width="1.8"/></svg>Data</button>
+</nav>
+<div id="toast" role="status" aria-live="polite"></div>
+<noscript><p class="card">This dashboard needs JavaScript to draw charts and run the calculations.</p></noscript>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

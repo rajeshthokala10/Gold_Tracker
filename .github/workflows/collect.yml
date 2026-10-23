@@ -1,0 +1,47 @@
+# Collects data for the gold dashboard on GitHub's runners and commits it
+# back to this branch. Triggered by pushes that touch the collector, or by hand.
+name: gold-collect
+on:
+  push:
+    branches: [main]
+    paths: [collector/**, .github/workflows/collect.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: gold-collect, cancel-in-progress: false }
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Save raw page samples (for parser checks)
+        run: |
+          mkdir -p collector/samples && cd collector/samples
+          UA='Mozilla/5.0 (compatible; gold-22k-dashboard/1.0)'
+          g(){ curl -sSL -m 60 -A "$UA" -o "$1" "$2" || echo "FAIL $2"; sleep 2; }
+          g gr_blr.html https://www.goodreturns.in/gold-rates/bangalore.html
+          g gr_tpt.html https://www.goodreturns.in/gold-rates/tirupati.html
+          g bb_blr.html https://www.bankbazaar.com/gold-rate-bangalore.html
+          g bb_tpt.html https://www.bankbazaar.com/gold-rate-tirupati.html
+          for s in goodreturns.in/gold-rates/bangalore.html bankbazaar.com/gold-rate-bangalore.html goodreturns.in/gold-rates/tirupati.html bankbazaar.com/gold-rate-tirupati.html; do
+            n=$(echo $s | tr '/.' '__')
+            g cdx_$n.json "https://web.archive.org/cdx/search/cdx?url=$s&from=2021&filter=statuscode:200&collapse=timestamp:6&output=json&fl=timestamp,original"
+          done
+          ts=$(python3 -c "import json;d=json.load(open('cdx_goodreturns_in_gold-rates_bangalore_html.json'));print(d[min(5,len(d)-1)][0])" || true)
+          [ -n "$ts" ] && g wb_gr_blr_$ts.html "https://web.archive.org/web/${ts}id_/https://www.goodreturns.in/gold-rates/bangalore.html"
+          ts=$(python3 -c "import json;d=json.load(open('cdx_bankbazaar_com_gold-rate-bangalore_html.json'));print(d[min(5,len(d)-1)][0])" || true)
+          [ -n "$ts" ] && g wb_bb_blr_$ts.html "https://web.archive.org/web/${ts}id_/https://www.bankbazaar.com/gold-rate-bangalore.html"
+          ls -la
+          gzip -9f *.html
+      - name: Collect
+        run: python collector/build.py --max-snapshots "$(cat collector/max_snapshots.txt 2>/dev/null || echo 4)" 2>&1 | tee collector/samples/build_log.txt
+        continue-on-error: true
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add site/data collector/cache collector/samples
+          if ! git diff --cached --quiet; then git commit -m "Collect gold dashboard data" && git push; fi

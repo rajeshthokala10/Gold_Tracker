@@ -1,0 +1,60 @@
+# Refreshes the gold dashboard data and deploys site to GitHub Pages.
+# Runs on a schedule (after Indian market close and after the morning city-rate
+# update) and on manual dispatch. It does not run on push.
+#
+# One-time setup: Settings -> Pages -> Source: "GitHub Actions".
+name: gold-dashboard
+
+on:
+  schedule:
+    - cron: "40 4 * * *"    # 10:10 IST – city rates for the day are usually out
+    - cron: "50 11 * * 1-5" # 17:20 IST – after NSE close
+  workflow_dispatch:
+    inputs:
+      max_snapshots:
+        description: "New archive captures to read per city/source (backfill)"
+        default: "400"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: gold-dashboard
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - name: Unit tests
+        run: |
+          python -m unittest discover -s tests -p "test_*.py"
+          node --test tests/analysis.test.mjs
+      - name: Collect data (keeps last valid data on failure)
+        run: python collector/build.py --max-snapshots "${{ github.event.inputs.max_snapshots || '60' }}"
+      - name: Commit refreshed data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add site/data collector/cache
+          if ! git diff --cached --quiet; then git commit -m "Refresh gold dashboard data" && git push; fi
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: site }
+
+  deploy:
+    needs: refresh
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,19 @@
+{
+ "generated_at": "2026-10-23T13:47:51+05:30",
+ "as_of_date": "2026-10-23",
+ "complete_years": [
+  2022,
+  2023,
+  2024,
+  2025
+ ],
+ "ytd_year": 2026,
+ "series": {},
+ "refresh": {
+  "at": "2026-10-23T13:47:51+05:30",
+  "ok": false,
+  "log": [
+   "Collection has not run yet: the build environment's network policy blocks the price sources (query1.finance.yahoo.com, nsearchives.nseindia.com, www.goodreturns.in, www.bankbazaar.com, web.archive.org). No prices are shown until a real collection succeeds."
+  ]
+ }
+}
