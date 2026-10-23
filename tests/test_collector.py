@@ -44,6 +44,18 @@ class Parsers(unittest.TestCase):
         self.assertEqual(rows, [("2026-10-22", 9167.0, "10 g column"), ("2026-10-21", 9158.0, "10 g column")])
         self.assertTrue(any("exclude GST" in s for s in gst))
 
+    def test_unit_inferred_from_gram_table(self):
+        # Date table states no weight; the Gram table says 1 gram = 4,490, so
+        # 44,900 must be the 10 g figure.
+        html = """<table><tr><th>Gram</th><th>22 Carat Gold Today</th></tr><tr><td>1 gram</td><td>₹ 4,490</td></tr></table>
+        <table><tr><th>Date</th><th>22 Carat</th><th>24 Carat</th></tr><tr><td>Aug 3, 2021</td><td>₹ 44,900 ( -90 )</td><td>x</td></tr>
+        <tr><td>Aug 2, 2021</td><td>₹ 44,990</td><td>x</td></tr><tr><td>Aug 1, 2021</td><td>₹ 44,990</td><td>x</td></tr></table>"""
+        rows, _ = extract_22k(html, dt.date(2021, 8, 3))
+        self.assertEqual([r[:2] for r in rows], [("2021-08-03", 4490.0), ("2021-08-02", 4499.0), ("2021-08-01", 4499.0)])
+        # Without a Gram table nothing is guessed.
+        rows, _ = extract_22k(html.split("</table>", 1)[1], dt.date(2021, 8, 3))
+        self.assertEqual(rows, [])
+
     def test_cross_validate(self):
         a = {"2026-01-01": {"price": 100}, "2026-01-02": {"price": 103}}
         b = {"2026-01-01": {"price": 100.5}, "2026-01-02": {"price": 100}}
@@ -59,8 +71,8 @@ class Parsers(unittest.TestCase):
             goldbees.adjust_for_splits(rows, [])
 
     def test_ratio_validation_rejects_unit_errors(self):
-        etf = {"2026-01-01": 100.0}
-        pts = {"2026-01-02": {"price": 9200.0}, "2026-01-03": {"price": 92000.0}}
+        etf = {"2026-01-01": 100.0}  # 22K/g ÷ (ETF × 100): 1.12 keeps, 11.2 (a per-10 g figure) rejects
+        pts = {"2026-01-02": {"price": 11200.0}, "2026-01-03": {"price": 112000.0}}
         kept, notes = build.validate_city(pts, etf)
         self.assertEqual(list(kept), ["2026-01-02"])
         self.assertTrue(notes)
