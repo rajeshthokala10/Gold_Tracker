@@ -155,6 +155,9 @@ test("strategy comparison invests equal amounts over the same period", () => {
   close(r.monthly.invested + r.monthly.cashLeft, 120000, 1e-6);
   close(r.seasonal.invested + r.seasonal.cashLeft, 120000, 1e-6);
   assert.ok(r.lump.value > r.monthly.value); // steadily rising price favours lump sum
+  close(r.annual.invested + r.annual.cashLeft, 120000, 1e-6);
+  assert.deepEqual(r.comparableYears, [2024, 2025, 2026]); // 2022–23 history exists, so every period year gets a pick
+  assert.equal(r.annual.buys, r.seasonal.buys + r.seasonalChoices.filter((c) => c.week && !c.executed).length);
   assert.ok(r.monthly.buys >= 24);
   assert.equal(r.lump.maxDD <= 0, true);
 });

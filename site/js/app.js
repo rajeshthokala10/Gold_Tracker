@@ -162,9 +162,11 @@ function findingsCard() {
     const wf = A.walkForward(w, 13, kindOf(x.id), costs(), testYears(), 5);
     const strong = rk.strongest.map((s) => `W${s.w} (${pct(s.mean, 1)})`).join(", ");
     const weak = rk.weakest.map((s) => `W${s.w} (${pct(s.mean, 1)})`).join(", ");
+    const cov = [...years(), DATA.ytd_year].map((y) => `${y}: ${w.filter((k) => k.y === y && k.status === "ok").length}/${A.weeksInIsoYear(y)}`).join(" · ");
     return `<details><summary><span class="dot" style="background:${x.color};margin-right:8px"></span>${x.name}</summary>
-      <p><b>Historically strongest weeks:</b> ${strong || "—"}</p>
-      <p><b>Historically weakest weeks:</b> ${weak || "—"}</p>
+      <p class="small muted">Usable weekly returns — ${cov}</p>
+      <p><b>Historically strongest weeks:</b> ${strong || "— (fewer than 3 years of data for every week)"}</p>
+      <p><b>Historically weakest weeks:</b> ${weak || "— (fewer than 3 years of data for every week)"}</p>
       <p><b>Did timing help out-of-sample?</b> <span class="badge ${wf.evidence.code === "no-edge" ? "warn" : ""}">${esc(wf.evidence.text)}</span> <span class="small muted">(13-week holds, after costs)</span></p></details>`;
   }).join("");
   return `<div class="card"><h2>What history shows</h2>
@@ -337,8 +339,8 @@ function renderInvest(host) {
       <span>Max drawdown</span><span class="num r-down" style="text-align:right">${pct(r.maxDD, 1)}</span>
       <span>Buys · profitable now</span><span class="num" style="text-align:right">${r.buys} · ${r.profitableTranches == null ? "—" : Math.round(r.profitableTranches * 100) + "%"}</span>
       ${r.cashLeft > 1 ? `<span>Still in cash</span><span class="num" style="text-align:right">${inr(r.cashLeft)}</span>` : ""}</div>
-      <div class="bar" aria-hidden="true"><i style="width:${Math.max(2, Math.min(100, (r.value / Math.max(cmp.lump.value, cmp.monthly.value, cmp.seasonal.value)) * 100))}%"></i></div></div>` : "";
-  const seasonalBeat = cmp && cmp.seasonal.value > Math.max(cmp.lump.value, cmp.monthly.value);
+      <div class="bar" aria-hidden="true"><i style="width:${Math.max(2, Math.min(100, (r.value / Math.max(cmp.lump.value, cmp.monthly.value, cmp.seasonal.value, cmp.annual.value)) * 100))}%"></i></div></div>` : "";
+  const seasonalBeat = cmp && cmp.seasonal.value > cmp.annual.value;
   host.innerHTML = `
   <div class="card"><h2>Costs</h2>${costsForm(kind)}
     <label class="field" style="flex-direction:row;align-items:center;gap:8px;margin-top:6px"><input type="checkbox" id="net" ${state.net === "1" ? "checked" : ""} style="width:22px;height:22px;min-height:0"> Apply costs to entry-week tables</label>
@@ -376,9 +378,13 @@ function renderInvest(host) {
   <div class="card"><h2>Strategy comparison</h2>
     <div class="controls"><label class="field">Period starts<select id="sy">${[...ys, DATA.ytd_year].map((y) => `<option value="${y}" ${y === sy ? "selected" : ""}>1 Jan ${y}</option>`).join("")}</select></label></div>
     ${cmp ? `<p class="small">Same ₹${amt.toLocaleString("en-IN")}, same period (${fmtDay(cmp.start)} → ${fmtDay(cmp.end)}), costs on every buy and on the final sale. Values are what you would receive if sold, pre-tax.</p>
-    <div class="strat">${stratRow(cmp.lump)}${stratRow(cmp.monthly)}${stratRow(cmp.seasonal)}</div>
-    <p class="small">Seasonal week each year (chosen only from earlier data, best average 52-week return): ${cmp.seasonalChoices.map((q) => `${q.year}: ${q.week ? "W" + q.week : "no pick"}${q.week && !q.executed ? " (not reached / no quote)" : ""}`).join(" · ")}</p>
-    <p><span class="badge ${seasonalBeat ? "" : "warn"}">${seasonalBeat ? "Seasonal buying came out ahead in this one period — a single path, not proof" : "Seasonal buying did not beat simple buy-and-hold or monthly investing here"}</span></p>` : `<p class="muted">Not enough data for this period.</p>`}
+    <h3>Does timing the week matter? (same money, same cadence)</h3>
+    <div class="strat">${stratRow(cmp.seasonal)}${stratRow(cmp.annual)}</div>
+    <p class="small">Both put the same amount in once a year, in ${cmp.comparableYears.length ? cmp.comparableYears.join(", ") : "no year yet"}; the only difference is the week. Seasonal week each year (chosen only from earlier data, best average 52-week return): ${cmp.seasonalChoices.map((q) => `${q.year}: ${q.week ? "W" + q.week : "no pick"}${q.week && !q.executed ? " (not reached / no quote)" : ""}`).join(" · ")}</p>
+    <p><span class="badge ${seasonalBeat ? "" : "warn"}">${seasonalBeat ? "The timed week came out ahead of the untimed one in this period — one path, not proof" : "Timing the week did not beat simply buying in the first week of the year"}</span></p>
+    <h3>For reference: deploying the money sooner</h3>
+    <div class="strat">${stratRow(cmp.lump)}${stratRow(cmp.monthly)}</div>
+    <p class="small">Lump sum and monthly investing put money to work earlier than once-a-year buying, so in a rising market they finish higher; that is time in the market, not timing.</p>` : `<p class="muted">Not enough data for this period.</p>`}
   </div>`;
   const exitPts = exitRows.filter((r) => r.mean != null).map((r) => [A.fmtDate(A.parseDate("2000-01-03") + r.k * 7 * 864e5), r.mean * 100]);
   if (exitPts.length) {

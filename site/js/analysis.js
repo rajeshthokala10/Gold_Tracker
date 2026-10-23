@@ -370,18 +370,25 @@ export function compareStrategies(weeks, { amount, startYear, kind, costs, seaso
     if (m !== lastMonth) { monthBuys.push(i); lastMonth = m; }
   }
   // Seasonal schedule: one buy per year in an out-of-sample chosen week.
+  // Its fair twin is "annual": the same amount once a year, in the first
+  // priced week of the year, with no timing. Years for which no pick can be
+  // made yet (too little earlier history) are skipped by BOTH, so the pair
+  // differs only in which week of the year the money goes in.
   const fwd = forwardReturns(weeks, seasonalH, kind, costs);
   const years = [...new Set(period.map((p) => p.y))];
-  const seasonalBuys = [];
+  const seasonalBuys = [], annualBuys = [];
   const seasonalChoices = [];
   for (const Y of years) {
     const train = fwd.filter((r) => r.exitDate < `${Y}-01-01`);
     const st = entryWeekStats(train).filter((s) => s.w >= 1 && s.n >= 1).sort((a, b) => b.mean - a.mean);
     const wPick = st.length ? st[0].w : null;
     const idx = wPick == null ? -1 : period.findIndex((p) => p.y === Y && p.w === wPick && p.price != null);
-    seasonalChoices.push({ year: Y, week: wPick, trainN: train.length, executed: idx >= 0, date: idx >= 0 ? period[idx].date : null });
+    const firstIdx = wPick == null ? -1 : period.findIndex((p) => p.y === Y && p.price != null);
+    seasonalChoices.push({ year: Y, week: wPick, trainN: train.length, executed: idx >= 0, date: idx >= 0 ? period[idx].date : null, annualDate: firstIdx >= 0 ? period[firstIdx].date : null });
     seasonalBuys.push(idx);
+    annualBuys.push(firstIdx);
   }
+  const nComparable = seasonalChoices.filter((c) => c.week != null).length;
 
   function run(buyIdx, perBuy, label) {
     let units = 0, invested = 0, cash = amount;
@@ -424,8 +431,9 @@ export function compareStrategies(weeks, { amount, startYear, kind, costs, seaso
     start: period[0].date, end: period[period.length - 1].date,
     lump: run([0], amount, "Lump sum, buy & hold"),
     monthly: run(monthBuys, amount / monthBuys.length, "Monthly investing"),
-    seasonal: run(seasonalBuys, amount / years.length, "Seasonal: once a year in out-of-sample 'best' week"),
-    seasonalChoices,
+    annual: run(annualBuys, amount / years.length, "Once a year, first week (no timing)"),
+    seasonal: run(seasonalBuys, amount / years.length, "Once a year, in the out-of-sample 'best' week"),
+    seasonalChoices, comparableYears: seasonalChoices.filter((c) => c.week != null).map((c) => c.year),
   };
   return res;
 }
