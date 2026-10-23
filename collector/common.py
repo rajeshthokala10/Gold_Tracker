@@ -42,7 +42,7 @@ def http_get(url: str, *, retries: int = 3, timeout: int = 30, pause: float = 0.
             return body
         except (urllib.error.URLError, TimeoutError, ConnectionError) as e:  # noqa: PERF203
             last = e
-            log(f"  retry {attempt + 1}/{retries} {type(e).__name__} {url[:90]}")
+            say(f"  retry {attempt + 1}/{retries} {type(e).__name__} {url[:90]}")
             if isinstance(e, urllib.error.HTTPError) and e.code in (403, 404, 410):
                 break
             if attempt + 1 < retries:
