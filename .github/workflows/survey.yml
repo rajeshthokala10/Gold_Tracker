@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
-concurrency: { group: gold-collect, cancel-in-progress: false }
+concurrency: { group: survey, cancel-in-progress: false }
 jobs:
   survey:
     runs-on: ubuntu-latest
