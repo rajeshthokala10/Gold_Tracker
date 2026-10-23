@@ -173,6 +173,17 @@ function findingsCard() {
   <p class="small">Average weekly % change by ISO week, ${years()[0]}–${years().at(-1)}. Each week has at most ${years().length} observations, so these are <b>exploratory</b> patterns, not predictions.</p>${rows}</div>`;
 }
 
+// Coverage line, plus a pointer to the complete benchmark when a city series
+// has thin years (archived rate pages are scarce before late 2024).
+function coverageNote(id, w) {
+  const all = [...years(), DATA.ytd_year];
+  const cov = all.map((y) => ({ y, ok: w.filter((k) => k.y === y && k.status === "ok").length, n: A.weeksInIsoYear(y) }));
+  const thin = cov.filter((c) => c.y !== DATA.ytd_year && c.ok < c.n / 2);
+  const line = cov.map((c) => `${c.y}: ${c.ok}/${c.n}`).join(" · ");
+  if (!thin.length) return `<p class="small muted">Usable weekly returns — ${line}</p>`;
+  return `<div class="note"><b>Thin history for ${thin.map((c) => c.y).join(", ")}.</b> Usable weekly returns — ${line}. Published Bangalore rate pages were archived only a few times a year before late 2024, so most of those weeks have no measurable change and are left blank rather than estimated. ${id !== "goldbees" ? `<button class="btn" data-inst="goldbees" style="min-height:34px;padding:0 10px;margin-top:6px">See Gold BeES — complete 4-year benchmark</button>` : ""}</div>`;
+}
+
 function testYears() {
   const ys = years();
   return [...ys.slice(1), DATA.ytd_year];
@@ -254,6 +265,7 @@ function renderWeekly(host) {
   host.innerHTML = `
   <div class="card"><h2>Strongest & weakest calendar weeks</h2>
     <p class="small">${x.name}, ranked by <b>average weekly % return</b> across ${ys[0]}–${ys.at(-1)} (complete years only). Weeks with fewer than 3 valid years are not ranked.</p>
+    ${coverageNote(x.id, w)}
     <div class="note">Only ${ys.length} observations per week. One unusual year can dominate an average — check the “Robustness” column. Exploratory, not predictive.</div>
     <h3>5 strongest</h3>${seasonTable(rk.strongest)}
     <h3>5 weakest</h3>${seasonTable(rk.weakest)}
@@ -348,6 +360,7 @@ function renderInvest(host) {
   <div class="card"><h2>Historically favourable entry weeks</h2>
     <div class="seg" role="tablist" aria-label="Holding period">${HORIZONS.map((q) => `<button role="tab" aria-selected="${q === h}" data-set-h="${q}">${q} wk</button>`).join("")}</div>
     <p class="small" style="margin-top:8px">Return from buying at the end of each ISO week and selling ${h} weeks later${state.net === "1" ? ", after costs" : " (price only)"}. Only complete ${h}-week windows are counted. Average for <b>all</b> entry weeks: <b class="${rcls(allMean)}">${pct(allMean, 1)}</b>, profitable ${allProf == null ? "—" : Math.round(allProf * 100) + "%"} of ${fwd.length} windows.</p>
+    ${coverageNote(x.id, w)}
     <div class="note">The weakest past week is not automatically a good buying week. These tables are in-sample (they use all years), so they flatter timing. The out-of-sample test below is the fairer check.</div>
     <h3>Top 5 entry weeks (in-sample)</h3>${entryTable(best.slice(0, 5))}
     <h3>Bottom 5 entry weeks (in-sample)</h3>${entryTable(best.slice(-5).reverse())}
