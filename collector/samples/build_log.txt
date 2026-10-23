@@ -1,32 +1,107 @@
-[16:32:33] Gold BeES: fetching Yahoo chart
-[16:32:33] Gold BeES: 1197 daily rows, 0 split event(s)
-[16:32:33] Gold BeES: cross-checking against NSE bhavcopy
-[16:32:39]   retry 1/1 HTTPError https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_23102026.csv
-[16:32:39] Gold BeES: NSE check done, 4 days compared, 1 issue(s)
-[16:32:39] Bangalore: collecting
-[16:32:39] Bangalore / livemint: live page
-[16:32:41]   live page: 15 row(s) parsed
-[16:32:44]   archive: 581 captures listed over 1 host(s), 102 chosen (~weekly), 21 to read now
-[16:33:43]   retry 1/2 URLError https://web.archive.org/web/20250115032657id_/https://www.livemint.com/gold-prices/bangalo
-[16:34:30]   retry 2/2 URLError https://web.archive.org/web/20250115032657id_/https://www.livemint.com/gold-prices/bangalo
-[16:35:25]   archive: 10/21 (20251024)
-[16:37:16]   archive: 20/21 (20260825)
-[16:38:01]   retry 1/2 URLError https://web.archive.org/web/20260825013046id_/https://www.livemint.com/gold-prices/bangalo
-[16:38:24]   archive: 21/21 (20260901)
-[16:38:27] Bangalore / goodreturns: live page
-[16:38:28]   live page: 10 row(s) parsed
-[16:39:43]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://www.goodreturns.in/gold-rates/bangalore
-[16:42:08]   retry 2/3 URLError https://web.archive.org/cdx/search/cdx?url=https://www.goodreturns.in/gold-rates/bangalore
-[16:42:14]   archive: 31 captures listed over 1 host(s), 26 chosen (~weekly), 7 to read now
-[16:43:23]   retry 1/2 URLError https://web.archive.org/web/20240118154534id_/https://www.goodreturns.in/gold-rates/bangal
-[16:44:10]   retry 2/2 URLError https://web.archive.org/web/20240118154534id_/https://www.goodreturns.in/gold-rates/bangal
-[16:44:10]   archive: 7/7 (20240402)
-[16:44:48] Bangalore / bankbazaar: live page
-[16:44:49]   live page: 10 row(s) parsed
-[16:46:22]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://11estates.bankbazaar.com/gold-rate-bang
-[16:48:16]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://indianbluebook.bankbazaar.com/gold-rate
-[16:50:41]   retry 2/3 URLError https://web.archive.org/cdx/search/cdx?url=https://indianbluebook.bankbazaar.com/gold-rate
-[16:50:52]   archive: 21 captures listed over 8 host(s), 20 chosen (~weekly), 3 to read now
-[16:50:57]   archive: 3/3 (20260807)
+[17:05:25] Gold BeES: fetching Yahoo chart
+[17:05:25] Gold BeES: 1197 daily rows, 0 split event(s)
+[17:05:25] Gold BeES: cross-checking against NSE bhavcopy
+[17:05:32] Gold BeES: NSE check done, 5 days compared, 0 issue(s)
+[17:05:32] Bangalore: collecting
+[17:05:32] Bangalore / livemint: live page
+[17:05:34]   live page: 15 row(s) parsed
+[17:05:49]   archive: 581 captures listed over 1 host(s), 102 chosen (~weekly), 102 to read now
+[17:06:34]   retry 1/2 URLError https://web.archive.org/web/20230420134518id_/https://www.livemint.com/gold-prices/bangalo
+[17:07:21]   retry 2/2 URLError https://web.archive.org/web/20230420134518id_/https://www.livemint.com/gold-prices/bangalo
+[17:08:41]   retry 1/2 URLError https://web.archive.org/web/20231204033928id_/https://www.livemint.com/gold-prices/bangalo
+[17:09:46]   retry 1/2 URLError https://web.archive.org/web/20241107202741id_/https://www.livemint.com/gold-prices/bangalo
+[17:10:33]   retry 2/2 URLError https://web.archive.org/web/20241107202741id_/https://www.livemint.com/gold-prices/bangalo
+[17:11:16]   archive: 10/102 (20241202)
+[17:12:07]   archive: 20/102 (20250212)
+[17:13:02]   retry 1/2 URLError https://web.archive.org/web/20250219112558id_/https://www.livemint.com/gold-prices/bangalo
+[17:13:49]   retry 2/2 URLError https://web.archive.org/web/20250219112558id_/https://www.livemint.com/gold-prices/bangalo
+[17:15:26]   retry 1/2 URLError https://web.archive.org/web/20250403063002id_/https://www.livemint.com/gold-prices/bangalo
+[17:16:14]   retry 2/2 URLError https://web.archive.org/web/20250403063002id_/https://www.livemint.com/gold-prices/bangalo
+[17:17:05]   archive: 30/102 (20250426)
+[17:18:18]   retry 1/2 URLError https://web.archive.org/web/20250716183559id_/https://www.livemint.com/gold-prices/bangalo
+[17:19:05]   retry 2/2 URLError https://web.archive.org/web/20250716183559id_/https://www.livemint.com/gold-prices/bangalo
+[17:19:50]   retry 1/2 URLError https://web.archive.org/web/20250723041857id_/https://www.livemint.com/gold-prices/bangalo
+[17:19:55]   archive: 40/102 (20250730)
+[17:22:06]   archive: 50/102 (20251009)
+[17:22:51]   retry 1/2 URLError https://web.archive.org/web/20251009035518id_/https://www.livemint.com/gold-prices/bangalo
+[17:23:38]   retry 2/2 URLError https://web.archive.org/web/20251009035518id_/https://www.livemint.com/gold-prices/bangalo
+[17:24:23]   retry 1/2 URLError https://web.archive.org/web/20251016223059id_/https://www.livemint.com/gold-prices/bangalo
+[17:25:29]   retry 1/2 URLError https://web.archive.org/web/20251130011343id_/https://www.livemint.com/gold-prices/bangalo
+[17:26:16]   retry 2/2 URLError https://web.archive.org/web/20251130011343id_/https://www.livemint.com/gold-prices/bangalo
+[17:27:02]   archive: 60/102 (20251222)
+[17:29:27]   archive: 70/102 (20260302)
+[17:30:12]   retry 1/2 URLError https://web.archive.org/web/20260302043627id_/https://www.livemint.com/gold-prices/bangalo
+[17:32:35]   retry 1/2 URLError https://web.archive.org/web/20260505173833id_/https://www.livemint.com/gold-prices/bangalo
+[17:33:22]   retry 2/2 URLError https://web.archive.org/web/20260505173833id_/https://www.livemint.com/gold-prices/bangalo
+[17:33:22]   archive: 80/102 (20260512)
+[17:34:07]   retry 1/2 URLError https://web.archive.org/web/20260512001829id_/https://www.livemint.com/gold-prices/bangalo
+[17:34:54]   retry 2/2 URLError https://web.archive.org/web/20260512001829id_/https://www.livemint.com/gold-prices/bangalo
+[17:35:28]   archive: 90/102 (20260721)
+[17:37:09]   retry 1/2 URLError https://web.archive.org/web/20260901190841id_/https://www.livemint.com/gold-prices/bangalo
+[17:37:56]   retry 2/2 URLError https://web.archive.org/web/20260901190841id_/https://www.livemint.com/gold-prices/bangalo
+[17:38:41]   retry 1/2 URLError https://web.archive.org/web/20260908014658id_/https://www.livemint.com/gold-prices/bangalo
+[17:39:28]   retry 2/2 URLError https://web.archive.org/web/20260908014658id_/https://www.livemint.com/gold-prices/bangalo
+[17:39:34]   archive: 100/102 (20260929)
+[17:39:42]   archive: 102/102 (20261014)
+[17:39:45] Bangalore / goodreturns: live page
+[17:39:46]   live page: 10 row(s) parsed
+[17:41:57]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://www.goodreturns.in/gold-rates/bangalore
+[17:44:42]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://tamil.goodreturns.in/gold-rates/bangalo
+[17:47:06]   retry 2/3 URLError https://web.archive.org/cdx/search/cdx?url=https://tamil.goodreturns.in/gold-rates/bangalo
+[17:48:41]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://tamil.goodreturns.in/gold-rates/bangalo
+[17:51:05]   retry 2/3 URLError https://web.archive.org/cdx/search/cdx?url=https://tamil.goodreturns.in/gold-rates/bangalo
+[17:53:53]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://telugu.goodreturns.in/gold-rates/bangal
+[17:56:34]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://malayalam.goodreturns.in/gold-rates/ban
+[17:57:56]   archive: 122 captures listed over 6 host(s), 64 chosen (~weekly), 64 to read now
+[17:58:46]   retry 1/2 URLError https://web.archive.org/web/20210127165225id_/https://telugu.goodreturns.in/gold-rates/ban
+[17:59:33]   retry 2/2 URLError https://web.archive.org/web/20210127165225id_/https://telugu.goodreturns.in/gold-rates/ban
+[18:00:35]   archive: 10/64 (20210527)
+[18:01:20]   retry 1/2 URLError https://web.archive.org/web/20210527013557id_/https://www.goodreturns.in/gold-rates/bangal
+[18:02:07]   retry 2/2 URLError https://web.archive.org/web/20210527013557id_/https://www.goodreturns.in/gold-rates/bangal
+[18:03:27]   retry 1/2 URLError https://web.archive.org/web/20210604200307id_/https://kannada.goodreturns.in/gold-rates/ba
+[18:04:05]   archive: 20/64 (20211019)
+[18:05:51]   retry 1/2 URLError https://web.archive.org/web/20220110030455id_/https://telugu.goodreturns.in/gold-rates/ban
+[18:06:38]   retry 2/2 URLError https://web.archive.org/web/20220110030455id_/https://telugu.goodreturns.in/gold-rates/ban
+[18:07:23]   retry 1/2 URLError https://web.archive.org/web/20220216113601id_/https://telugu.goodreturns.in/gold-rates/ban
+[18:08:12]   retry 2/2 URLError https://web.archive.org/web/20220216113601id_/https://telugu.goodreturns.in/gold-rates/ban
+[18:08:21]   archive: 30/64 (20220329)
+[18:10:46]   archive: 40/64 (20221016)
+[18:11:39]   retry 1/2 URLError https://web.archive.org/web/20221126215121id_/https://telugu.goodreturns.in/gold-rates/ban
+[18:12:26]   retry 2/2 URLError https://web.archive.org/web/20221126215121id_/https://telugu.goodreturns.in/gold-rates/ban
+[18:13:29]   retry 1/2 URLError https://web.archive.org/web/20221208104321id_/https://kannada.goodreturns.in/gold-rates/ba
+[18:14:02]   archive: 50/64 (20230810)
+[18:15:04]   retry 1/2 URLError https://web.archive.org/web/20231030115307id_/https://www.goodreturns.in/gold-rates/bangal
+[18:15:51]   retry 2/2 URLError https://web.archive.org/web/20231030115307id_/https://www.goodreturns.in/gold-rates/bangal
+[18:17:34]   retry 1/2 URLError https://web.archive.org/web/20250330100101id_/https://www.goodreturns.in/gold-rates/bangal
+[18:18:21]   retry 2/2 URLError https://web.archive.org/web/20250330100101id_/https://www.goodreturns.in/gold-rates/bangal
+[18:19:41]   retry 1/2 URLError https://web.archive.org/web/20250811080811id_/https://tamil.goodreturns.in/gold-rates/bang
+[18:19:46]   archive: 60/64 (20250909)
+[18:19:59]   archive: 64/64 (20260915)
+[18:20:01] Bangalore / bankbazaar: live page
+[18:20:03]   live page: 10 row(s) parsed
+[18:21:29]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://www.bankbazaar.com/gold-rate-bangalore.
+[18:24:14]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://ndtv.bankbazaar.com/gold-rate-bangalore
+[18:26:38]   retry 2/3 URLError https://web.archive.org/cdx/search/cdx?url=https://ndtv.bankbazaar.com/gold-rate-bangalore
+[18:28:13]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://bankdb.bankbazaar.com/gold-rate-bangalo
+[18:30:37]   retry 2/3 URLError https://web.archive.org/cdx/search/cdx?url=https://bankdb.bankbazaar.com/gold-rate-bangalo
+[18:32:51]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://quikrcars.bankbazaar.com/gold-rate-bang
+[18:35:15]   retry 2/3 URLError https://web.archive.org/cdx/search/cdx?url=https://quikrcars.bankbazaar.com/gold-rate-bang
+[18:36:50]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://zigwheels.bankbazaar.com/gold-rate-bang
+[18:39:26]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://11estates.bankbazaar.com/gold-rate-bang
+[18:42:08]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://indianbluebook.bankbazaar.com/gold-rate
+[18:46:03]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://shopelect.bankbazaar.com/gold-rate-bang
+[18:47:20]   retry 2/3 URLError https://web.archive.org/cdx/search/cdx?url=https://shopelect.bankbazaar.com/gold-rate-bang
+[18:48:46]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://shopelect.bankbazaar.com/gold-rate-bang
+[18:49:58]   archive: 23 captures listed over 8 host(s), 22 chosen (~weekly), 22 to read now
+[18:50:58]   retry 1/2 URLError https://web.archive.org/web/20220422061511id_/https://www.bankbazaar.com/gold-rate-bangalo
+[18:51:45]   retry 2/2 URLError https://web.archive.org/web/20220422061511id_/https://www.bankbazaar.com/gold-rate-bangalo
+[18:53:13]   archive: 10/22 (20230419)
+[18:55:14]   retry 1/2 URLError https://web.archive.org/web/20230908093906id_/https://www.bankbazaar.com/gold-rate-bangalo
+[18:56:01]   retry 2/2 URLError https://web.archive.org/web/20230908093906id_/https://www.bankbazaar.com/gold-rate-bangalo
+[18:56:46]   retry 1/2 URLError https://web.archive.org/web/20230922014634id_/https://www.bankbazaar.com/gold-rate-bangalo
+[18:57:42]   archive: 20/22 (20250909)
+[18:58:35]   retry 1/2 URLError https://web.archive.org/web/20260219091405id_/https://www.bankbazaar.com/gold-rate-bangalo
+[18:59:22]   retry 2/2 URLError https://web.archive.org/web/20260219091405id_/https://www.bankbazaar.com/gold-rate-bangalo
+[18:59:22]   archive: 22/22 (20260807)
+[19:00:42]   retry 1/2 URLError https://web.archive.org/web/20260807045600id_/https://www.bankbazaar.com/gold-rate-bangalo
 Wrote /home/runner/work/Gold_Tracker/Gold_Tracker/site/data/data.json
- - Gold BeES: 2026-10-23: NSE bhavcopy unavailable (HTTPError)
