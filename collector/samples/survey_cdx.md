@@ -1,0 +1,32 @@
+# Archive captures 2021–2024 per candidate page · 2026-10-23T11:05
+
+- `goldpriceindia.com/gold-price-bangalore.php`: 17 captures · 2021:5, 2022:2, 2023:4, 2024:6
+- `cleartax.in/gold-rate-bangalore`: 2 captures · 2024:2
+- `groww.in/gold-rates/gold-rate-today-in-bangalore`: 4 captures · 2023:1, 2024:3
+- `candere.com/gold-rate/bangalore`: FAILED URLError
+- `policybazaar.com/gold-rate/bangalore/`: 0 captures · 
+- `dialabank.com/gold-rate-in-bangalore`: 0 captures · 
+- `moneycontrol.com/news/gold-rates-today/bangalore/`: 2 captures · 2022:1, 2024:1
+- `kannada.goodreturns.in/gold-rates/bangalore.html`: 14 captures · 2021:9, 2022:2, 2023:3
+- `hindi.goodreturns.in/gold-rates/bangalore.html`: 18 captures · 2021:10, 2022:5, 2023:3
+- `tamil.goodreturns.in/gold-rates/bangalore.html`: 19 captures · 2021:11, 2022:6, 2023:2
+- `telugu.goodreturns.in/gold-rates/bangalore.html`: 12 captures · 2021:7, 2022:3, 2023:2
+- `malayalam.goodreturns.in/gold-rates/bangalore.html`: 12 captures · 2021:6, 2022:3, 2023:2, 2024:1
+- `goodreturns.in/gold-rates/bengaluru.html`: 0 captures · 
+- `economictimes.indiatimes.com/wealth/gold-rate-today/bangalore`: FAILED URLError
+- `paisabazaar.com/gold-rate/bangalore/`: FAILED HTTPError
+- `bajajfinserv.in/gold-rate-in-bangalore`: 7 captures · 2023:3, 2024:4
+- `financialexpress.com/gold-rate-today/bangalore/`: 0 captures · 
+- `angelone.in/gold-rates-today/bangalore`: 0 captures · 
+- `5paisa.com/gold-rate/bangalore`: 0 captures · 
+- `mymoneymantra.com/gold-rate-today/bangalore`: 0 captures · 
+- `wintwealth.com/gold-rates/bangalore/`: 5 captures · 2023:3, 2024:2
+- `indiatoday.in/commodity/gold-rate-in-bangalore-today`: 0 captures · 
+- `businesstoday.in/commodity/gold-rate-in-bangalore-today`: 0 captures · 
+- `livemint.com/gold-prices/bangalore`: 51 captures · 2023:2, 2024:49
+- `goodreturns.in/gold-rates/bangalore.html`: 38 captures · 2021:15, 2022:15, 2023:6, 2024:2
+- `bankbazaar.com/gold-rate-bangalore.html`: 16 captures · 2021:2, 2022:4, 2023:9, 2024:1
+- `ndtv.bankbazaar.com/gold-rate-bangalore.html`: 0 captures · 
+- `goldrateindia.com/bangalore`: 0 captures · 
+- `goldprice.org/gold-price-india.html`: 240 captures · 2021:61, 2022:74, 2023:55, 2024:50
+- `ibjarates.com/`: 101 captures · 2021:25, 2022:41, 2023:13, 2024:22
