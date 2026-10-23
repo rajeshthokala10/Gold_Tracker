@@ -29,17 +29,22 @@ CITIES = {
 # more often (hundreds of captures from 2024) than the other two (a few dozen).
 SOURCES = {
     "livemint": {"label": "Mint (livemint.com) city gold prices", "url": "https://www.livemint.com/gold-prices/{slug}"},
-    "goodreturns": {"label": "Goodreturns (Oneindia)", "url": "https://www.goodreturns.in/gold-rates/{slug}.html"},
+    # Goodreturns publishes the same city table in its language editions
+    # (identical figures, local-language dates); captures of those count too.
+    "goodreturns": {"label": "Goodreturns (Oneindia)", "url": "https://www.goodreturns.in/gold-rates/{slug}.html",
+                    "mirrors": [f"https://{h}.goodreturns.in/gold-rates/{{slug}}.html" for h in ("hindi", "tamil", "kannada", "telugu", "malayalam")]},
     # BankBazaar serves the identical page on partner sub-domains; captures of
     # any of them are the same published list, so they are read as one source.
     "bankbazaar": {"label": "BankBazaar", "url": "https://www.bankbazaar.com/gold-rate-{slug}.html",
                    "mirrors": [f"https://{h}.bankbazaar.com/gold-rate-{{slug}}.html" for h in ("ndtv", "bankdb", "quikrcars", "zigwheels", "11estates", "indianbluebook", "shopelect")]},
 }
-CDX = "https://web.archive.org/cdx/search/cdx?url={url}&from={start}&filter=statuscode:200&collapse=timestamp:8&output=json&fl=timestamp,original"
+# Queried one calendar year at a time: a single wide query returns fewer rows
+# than the per-year queries added together (the index trims long answers).
+CDX = "https://web.archive.org/cdx/search/cdx?url={url}&from={start}&to={end}&filter=statuscode:200&collapse=timestamp:8&output=json&fl=timestamp,original"
 WAYBACK = "https://web.archive.org/web/{ts}id_/{url}"  # id_ = original bytes, no toolbar
 # Bump when extract_22k changes: cached observations from an older parser are
 # discarded and every capture is read again.
-PARSER_VERSION = 3
+PARSER_VERSION = 4
 
 GST_PATTERNS = [
     r"[^.]{0,160}indicative[^.]{0,160}\.",  # the source's own disclaimer, e.g. "indicative and do not include GST"
@@ -71,7 +76,7 @@ def extract_22k(html: str, captured: dt.date, ref_per_gram: float | None = None)
         if len(t) < 3:
             continue
         header = [c.lower() for c in t[0]]
-        col22 = next((i for i, h in enumerate(header) if re.search(r"\b22\s*(?:k|kt|carat|ct)\b", h)), None)
+        col22 = _col22(header)
         if col22 is None or col22 == 0:
             continue
         grams = _grams(header[col22]) or _grams(" ".join(header))
@@ -79,7 +84,7 @@ def extract_22k(html: str, captured: dt.date, ref_per_gram: float | None = None)
         for row in t[1:]:
             if len(row) <= col22:
                 continue
-            d = parse_any_date(row[0], ref_year=None)
+            d = parse_any_date(row[0], ref_year=None) or _date_from_day_and_year(row[0], captured)
             v = first_rupee_number(row[col22])
             if not d or v is None:
                 continue
@@ -118,15 +123,44 @@ def extract_22k(html: str, captured: dt.date, ref_per_gram: float | None = None)
     return out, snippets[:6]
 
 
+def _col22(header: list[str]) -> int | None:
+    """Index of the 22-carat column. Accepts '22K', '22 Carat' and local-
+    language captions such as '22 ಕ್ಯಾರಟ್' (the digits are always ASCII)."""
+    for i, h in enumerate(header):
+        if re.search(r"(?<!\d)22(?!\d)", h) and not re.search(r"(?<!\d)(?:18|24)(?!\d)", h):
+            return i
+    return None
+
+
+def _date_from_day_and_year(cell: str, captured: dt.date) -> dt.date | None:
+    """Resolve a date whose month name is not in English ('ಅಕ್ಟೋಬರ್ 23, 2026').
+
+    The day and the year are ASCII digits. A rate table only lists the ~20
+    days before the capture, so exactly one date in that window carries that
+    day-of-month and year; the month follows from it with no guessing.
+    """
+    m = re.search(r"(?<!\d)(\d{1,2})(?!\d)", cell)
+    y = re.search(r"(?<!\d)(20\d{2})(?!\d)", cell)
+    if not m or not y:
+        return None
+    day, year = int(m[1]), int(y[1])
+    hits = [captured - dt.timedelta(days=k) for k in range(0, 21)]
+    hits = [d for d in hits if d.day == day and d.year == year]
+    return hits[0] if len(hits) == 1 else None
+
+
 def _per_gram_from_gram_table(tables) -> float | None:
-    """Today's 22K price for 1 gram from a 'Gram | ... 22K ...' table."""
+    """Today's 22K price for 1 gram from a 'Gram | ... 22K ...' table.
+    The first column is recognised by its rows ('1', '8', '10' grams), so the
+    caption may be in any language."""
     for t in tables:
         if len(t) < 2:
             continue
         header = [c.lower() for c in t[0]]
-        if not header or "gram" not in header[0]:
+        firsts = [re.sub(r"[^\d]", "", r[0]) for r in t[1:] if r]
+        if not header or not (("gram" in header[0]) or (firsts[:1] == ["1"] and {"8", "10"} & set(firsts))):
             continue
-        col = next((i for i, h in enumerate(header) if re.search(r"\b22\s*(?:k|kt|carat|ct)\b", h)), None)
+        col = _col22(header)
         if col is None:
             # BankBazaar's per-carat tables have no carat in the header; the
             # 22K one is the first 'Gram | Today | Yesterday' table on the page
@@ -195,11 +229,12 @@ def collect_source(city: str, source: str, start: dt.date, today: dt.date, log: 
     urls = [url] + [m.format(slug=CITIES[city]["slug"][source]) for m in SOURCES[source].get("mirrors", [])]
     listed = []  # (ts, page url)
     for u in urls:
-        try:
-            listing = json.loads(http_get(CDX.format(url=u, start=start.strftime("%Y%m%d")), retries=3, timeout=75, pause=2.0) or b"[]")
-            listed += [(r[0], u) for r in listing[1:]]
-        except Exception as e:  # noqa: BLE001
-            log.append(f"{CITIES[city]['name']} / {source}: Wayback index unavailable for {u.split('/')[2]} ({type(e).__name__})")
+        for y in range(start.year, today.year + 1):
+            try:
+                listing = json.loads(http_get(CDX.format(url=u, start=f"{y}0101", end=f"{y}1231"), retries=3, timeout=75, pause=2.0) or b"[]")
+                listed += [(r[0], u) for r in listing[1:]]
+            except Exception as e:  # noqa: BLE001
+                log.append(f"{CITIES[city]['name']} / {source}: Wayback index unavailable for {u.split('/')[2]} {y} ({type(e).__name__})")
     chosen, last_day = [], None
     for ts, u in sorted(listed):
         day = dt.date(int(ts[:4]), int(ts[4:6]), int(ts[6:8]))

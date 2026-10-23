@@ -56,6 +56,20 @@ class Parsers(unittest.TestCase):
         rows, _ = extract_22k(html.split("</table>", 1)[1], dt.date(2021, 8, 3))
         self.assertEqual(rows, [])
 
+    def test_local_language_edition(self):
+        # Kannada edition of the same table: digits are ASCII, month is not.
+        html = """<table><tr><th>ಗ್ರಾಂ</th><th>24K</th><th>22K</th><th>18K</th></tr><tr><td>1</td><td>₹14,248</td><td>₹13,060</td><td>x</td></tr>
+        <tr><td>8</td><td>x</td><td>₹1,04,480</td><td>x</td></tr><tr><td>10</td><td>x</td><td>₹1,30,600</td><td>x</td></tr></table>
+        <table><tr><th>ದಿನಾಂಕ</th><th>24 ಕ್ಯಾರಟ್</th><th>22 ಕ್ಯಾರಟ್</th></tr>
+        <tr><td>ಅಕ್ಟೋಬರ್ 23, 2026</td><td>₹14,248 (-190)</td><td>₹13,060 (-175)</td></tr>
+        <tr><td>ಅಕ್ಟೋಬರ್ 22, 2026</td><td>x</td><td>₹13,235 (-155)</td></tr>
+        <tr><td>ಅಕ್ಟೋಬರ್ 3, 2026</td><td>x</td><td>₹13,590</td></tr></table>"""
+        rows, _ = extract_22k(html, dt.date(2026, 10, 23))
+        self.assertEqual([r[:2] for r in rows], [("2026-10-23", 13060.0), ("2026-10-22", 13235.0), ("2026-10-03", 13590.0)])
+        # Captured on 5 Nov, the same '3' can only be 3 Nov; '23' falls outside the window and is dropped.
+        rows, _ = extract_22k(html, dt.date(2026, 11, 5))
+        self.assertEqual([r[0] for r in rows], ["2026-10-22", "2026-11-03"])
+
     def test_cross_validate(self):
         a = {"2026-01-01": {"price": 100}, "2026-01-02": {"price": 103}}
         b = {"2026-01-01": {"price": 100.5}, "2026-01-02": {"price": 100}}
