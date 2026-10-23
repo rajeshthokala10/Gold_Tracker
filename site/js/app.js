@@ -3,7 +3,6 @@ import { lineChart } from "./charts.js";
 
 const INST = [
   { id: "blr", name: "Bangalore 22K", short: "Bangalore", color: "var(--s-blr)" },
-  { id: "tpt", name: "Tirupati 22K", short: "Tirupati", color: "var(--s-tpt)" },
   { id: "goldbees", name: "Gold BeES", short: "Gold BeES", color: "var(--s-etf)" },
 ];
 const HORIZONS = [4, 13, 26, 52];
@@ -122,28 +121,29 @@ function renderHome(host) {
       <div class="stamp">Price date ${fmtDay(lc.date)} · fetched ${fmtTs(s.updated_at)}</div>
     </button>`;
   }).join("");
-  const b = seriesOf("blr"), t = seriesOf("tpt");
-  let diff = `<p class="muted">Needs both city series.</p>`;
-  if (b && t) {
-    const c = A.latestCommonDate(b.points, t.points);
+  // Bangalore vs Gold BeES: same-day comparison of the two instruments.
+  const b = seriesOf("blr"), g = seriesOf("goldbees");
+  let cmpCard = "";
+  if (b && g) {
+    const c = A.latestCommonDate(b.points, g.points);
     if (c) {
-      const d = c.a - c.b;
-      diff = `<p><b class="num" style="font-size:1.25rem">${d === 0 ? "Same price" : `${inr(Math.abs(d), 0)}/g`}</b> ${d === 0 ? "" : `<span class="muted">(${inr(Math.abs(d) * 10, 0)} per 10 g)</span>`}</p>
-      <p>${d > 0 ? "Bangalore is higher" : d < 0 ? "Tirupati is higher" : ""} ${d ? `by ${pct(Math.abs(d) / c.b).replace("+", "")}` : ""}</p>
-      <p class="stamp">Both quotes for ${fmtDay(c.date)} from the same primary source type. Bangalore ${inr(c.a, 0)}/g · Tirupati ${inr(c.b, 0)}/g.</p>`;
-    } else diff = `<p class="muted">No date with quotes for both cities.</p>`;
+      cmpCard = `<div class="card"><h2>Bangalore 22K vs Gold BeES</h2>
+      <p>On ${fmtDay(c.date)}: Bangalore 22K <b class="num">${inr(c.a, 0)}/g</b> · Gold BeES <b class="num">${inr(c.b, 2)}/unit</b></p>
+      <p class="small">One Gold BeES unit tracks a small fraction of a gram, so the two are compared by % moves, not by rupees. Use the “start = 100” chart for that.</p>
+      <p class="stamp">Latest date on which both have a quote.</p></div>`;
+    }
   }
   const none = !Object.keys(DATA.series || {}).length;
   host.innerHTML = none ? `
   <div class="card"><h2>No prices collected yet</h2>
-    <p>The analysis engine and screens are ready, but the price sources could not be reached from the build environment, so no Bangalore, Tirupati or Gold BeES prices have been collected.</p>
+    <p>The analysis engine and screens are ready, but the price sources could not be reached from the build environment, so no Bangalore or Gold BeES prices have been collected.</p>
     <p>This page shows only real, traceable prices. Nothing is estimated, filled in or borrowed from another city.</p>
     <p class="stamp">Last collection attempt ${fmtTs(DATA.refresh?.at)}. Details on the Data screen.</p>
     <button class="btn" data-go="data" style="margin-top:6px">See data status</button></div>
   <div class="cards">${cards}</div>` : `
   <div class="note"><b>Delayed data, not live.</b> City rates are the published daily 22K rates; Gold BeES is the latest NSE close (or delayed intraday). Data refreshed ${fmtTs(DATA.generated_at)}.</div>
   <div class="cards">${cards}</div>
-  <div class="card"><h2>Bangalore vs Tirupati (22K)</h2>${diff}</div>
+  ${cmpCard}
   ${findingsCard()}
   <div class="card"><h2>Explore</h2>
     <div class="grid2">
@@ -463,7 +463,7 @@ function renderData(host) {
   <div class="card"><h2>Limitations</h2>
     <ul class="small">
       <li>Four years give about four observations per calendar week — far too few to prove a seasonal effect. Treat every pattern as exploratory.</li>
-      <li>City rates are indicative published rates from aggregators, not prices from a specific jeweller. Shop prices, making charges and buy-back terms vary.</li>
+      <li>Bangalore rates are indicative published rates from aggregators, not prices from a specific jeweller. Shop prices, making charges and buy-back terms vary.</li>
       <li>City history is rebuilt from archived captures of public pages; days not captured stay missing.</li>
       <li>Past patterns do not predict future prices. This is not investment advice and the site never places trades.</li>
     </ul></div>`;
@@ -514,7 +514,7 @@ document.getElementById("share").addEventListener("click", async () => {
   const url = shareUrl();
   const title = document.title;
   try {
-    if (navigator.share) { await navigator.share({ title, text: "22K gold weekly patterns — Bangalore, Tirupati & Gold BeES", url }); return; }
+    if (navigator.share) { await navigator.share({ title, text: "22K gold weekly patterns — Bangalore & Gold BeES", url }); return; }
   } catch (err) { if (err && err.name === "AbortError") return; }
   try { await navigator.clipboard.writeText(url); toast("Link copied"); }
   catch { toast(url); }

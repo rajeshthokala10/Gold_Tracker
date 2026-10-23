@@ -1,4 +1,4 @@
-"""City-level 22K physical gold rates (Bangalore, Tirupati).
+"""City-level 22K physical gold rates (Bangalore).
 
 There is no free official daily archive of city jewellery-retail rates. The
 published "today's gold rate" pages of rate aggregators each carry a table of
@@ -24,7 +24,6 @@ from common import CACHE_DIR, first_rupee_number, http_get, say, parse_any_date,
 
 CITIES = {
     "blr": {"name": "Bangalore", "slug": {"livemint": "bangalore", "goodreturns": "bangalore", "bankbazaar": "bangalore"}},
-    "tpt": {"name": "Tirupati", "slug": {"livemint": "tirupati", "goodreturns": "tirupati", "bankbazaar": "tirupati"}},
 }
 # Livemint's city pages carry a 15-day per-gram table and are archived far
 # more often (hundreds of captures from 2024) than the other two (a few dozen).

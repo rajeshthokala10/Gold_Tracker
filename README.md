@@ -1,7 +1,7 @@
 # 22K Gold Weekly Patterns
 
-A small, phone-first website that analyses **22K physical gold in Bangalore and
-Tirupati** alongside **Nippon India ETF Gold BeES**: weekly rises and falls,
+A small, phone-first website that analyses **22K physical gold in Bangalore**
+alongside **Nippon India ETF Gold BeES**: weekly rises and falls,
 seasonal patterns over the last four complete calendar years, and historical
 entry and exit windows. It is historical analysis only. It does not forecast
 prices, give advice, place trades or connect to a broker.
@@ -56,17 +56,24 @@ nothing secret is sent to the browser.
 | Series | What it is | Primary source | Cross-check |
 |---|---|---|---|
 | Bangalore 22K | Published daily 22K rate for Bangalore, ₹/g (₹/10 g shown too) | Rate-aggregator page for the city, read live and from dated Internet Archive captures | The other aggregator (never mixed into the series) |
-| Tirupati 22K | Same, for Tirupati | Same | Same |
 | Gold BeES | Nippon India ETF Gold BeES, NSE **GOLDBEES** (series EQ), BSE 590095, ISIN **INF204KB17I5**. Closing price ₹/unit | Yahoo Finance chart API, `GOLDBEES.NS`, daily | Official NSE bhavcopy (`sec_bhavdata_full`) for recent days; ISIN re-checked from the NSE ETF list |
 
-The two city aggregators are Goodreturns (`goodreturns.in/gold-rates/<city>.html`)
-and BankBazaar (`bankbazaar.com/gold-rate-<city>.html`). Each page shows a table
-of the last ~10 days. The collector reads the live page on every run and reads
-historical captures of the same page from the Internet Archive, roughly one
-capture every 7 days, so the 10-day tables overlap. Every daily price keeps the
-URL of the exact page capture it came from: see `site/data/*_provenance.csv`.
-Whichever source has the better coverage becomes the city's **only** source for
-returns. The other is used only to measure how far apart the two are.
+Three published Bangalore rate pages are read: Mint (`livemint.com/gold-prices/bangalore`,
+a 15-day per-gram table, archived hundreds of times since 2024), Goodreturns
+(`goodreturns.in/gold-rates/bangalore.html`) and BankBazaar
+(`bankbazaar.com/gold-rate-bangalore.html`), each with a ~10-day table. The
+collector reads each live page on every run and reads dated captures of the
+same pages from the Internet Archive (about one per week, so the tables
+overlap). Every daily price keeps the URL of the exact page capture it came
+from: see `site/data/blr_22k_provenance.csv`.
+
+The source with the most valid days becomes the **primary** and supplies every
+date from its first observation onward. Another source may supply dates
+strictly *before* that (the archive has few captures of any Bangalore page
+before 2024), so each date has exactly one source and there is a single,
+documented change-over date. The ISO week containing that change is excluded
+from weekly statistics, because its change would compare two different price
+lists. The remaining source is used only to measure how far apart the lists are.
 
 **GST and charges.** The collector copies the source's own wording about GST,
 making charges and other levies from the page and shows it on the Data screen.
