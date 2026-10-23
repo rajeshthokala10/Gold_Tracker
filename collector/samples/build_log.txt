@@ -1,45 +1,47 @@
-[14:24:58] Gold BeES: fetching Yahoo chart
-[14:24:58] Gold BeES: 1196 daily rows, 0 split event(s)
-[14:24:58] Gold BeES: cross-checking against NSE bhavcopy
-[14:25:18]   retry 1/1 TimeoutError https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_15102026.csv
-[14:25:39]   retry 1/1 TimeoutError https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_16102026.csv
-[14:25:59]   retry 1/1 TimeoutError https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_19102026.csv
-[14:26:19]   retry 1/1 TimeoutError https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_21102026.csv
-[14:26:39]   retry 1/1 TimeoutError https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_23102026.csv
-[14:26:59]   retry 1/1 TimeoutError https://nsearchives.nseindia.com/content/equities/eq_etfseclist.csv
-[14:26:59] Gold BeES: NSE check done, 0 days compared, 6 issue(s)
-[14:26:59] Bangalore: collecting
-[14:26:59] Bangalore / goodreturns: live page
-[14:27:00]   live page: 0 row(s) parsed
-[14:27:02]   archive: 31 captures listed, 26 chosen (~weekly), 8 to read now
-[14:28:01]   retry 1/2 URLError https://web.archive.org/web/20220329125727id_/https://www.goodreturns.in/gold-rates/bangal
-[14:28:48]   retry 2/2 URLError https://web.archive.org/web/20220329125727id_/https://www.goodreturns.in/gold-rates/bangal
-[14:29:33]   retry 1/2 URLError https://web.archive.org/web/20220412055345id_/https://www.goodreturns.in/gold-rates/bangal
-[14:29:48]   archive: 8/8 (20220712)
-[14:29:51] Bangalore / bankbazaar: live page
-[14:29:53]   live page: 10 row(s) parsed
-[14:29:56]   archive: 21 captures listed, 20 chosen (~weekly), 8 to read now
-[14:30:48]   retry 1/2 URLError https://web.archive.org/web/20220509061345id_/https://www.bankbazaar.com/gold-rate-bangalo
-[14:31:07]   archive: 8/8 (20230419)
-[14:31:10] Bangalore FAILED: RuntimeError: only 0 valid observations from bankbazaar
-[14:31:10] Tirupati: collecting
-[14:31:10] Tirupati / goodreturns: live page
-[14:31:11]   live page: 0 row(s) parsed
-[14:31:13]   archive: 4 captures listed, 3 chosen (~weekly), 3 to read now
-[14:31:19]   archive: 3/3 (20240504)
-[14:31:22] Tirupati / bankbazaar: live page
-[14:31:23]   live page: 10 row(s) parsed
-[14:31:30]   archive: 4 captures listed, 4 chosen (~weekly), 4 to read now
-[14:31:38]   archive: 4/4 (20250107)
-[14:31:45] Tirupati FAILED: RuntimeError: only 0 valid observations from bankbazaar
+[14:49:48] Gold BeES: fetching Yahoo chart
+[14:49:48] Gold BeES: 1195 daily rows, 0 split event(s)
+[14:49:48] Gold BeES: cross-checking against NSE bhavcopy
+[14:49:55] Gold BeES: NSE check done, 5 days compared, 0 issue(s)
+[14:49:55] Bangalore: collecting
+[14:49:55] Bangalore / goodreturns: live page
+[14:49:56]   live page: 10 row(s) parsed
+[14:49:59]   archive: 31 captures listed, 26 chosen (~weekly), 26 to read now
+[14:50:31]   retry 1/2 URLError https://web.archive.org/web/20220412055345id_/https://www.goodreturns.in/gold-rates/bangal
+[14:50:48]   retry 2/2 URLError https://web.archive.org/web/20220412055345id_/https://www.goodreturns.in/gold-rates/bangal
+[14:51:04]   retry 1/2 URLError https://web.archive.org/web/20220507114442id_/https://www.goodreturns.in/gold-rates/bangal
+[14:51:21]   retry 2/2 URLError https://web.archive.org/web/20220507114442id_/https://www.goodreturns.in/gold-rates/bangal
+[14:51:37]   retry 1/2 URLError https://web.archive.org/web/20220527001339id_/https://www.goodreturns.in/gold-rates/bangal
+[14:51:54]   retry 2/2 URLError https://web.archive.org/web/20220527001339id_/https://www.goodreturns.in/gold-rates/bangal
+[14:52:09]   retry 1/2 URLError https://web.archive.org/web/20220712023357id_/https://www.goodreturns.in/gold-rates/bangal
+[14:53:21]   retry 1/2 URLError https://web.archive.org/web/20220809222422id_/https://www.goodreturns.in/gold-rates/bangal
+[14:53:39]   retry 2/2 URLError https://web.archive.org/web/20220809222422id_/https://www.goodreturns.in/gold-rates/bangal
+[14:53:39]   archive: 10/26 (20220921)
+[14:53:57]   retry 1/2 URLError https://web.archive.org/web/20221001014049id_/https://www.goodreturns.in/gold-rates/bangal
+[14:54:14]   retry 2/2 URLError https://web.archive.org/web/20221001014049id_/https://www.goodreturns.in/gold-rates/bangal
+[14:54:35]   retry 1/2 URLError https://web.archive.org/web/20230304083949id_/https://www.goodreturns.in/gold-rates/bangal
+[14:55:32]   retry 2/2 URLError https://web.archive.org/web/20230304083949id_/https://www.goodreturns.in/gold-rates/bangal
+[14:56:02]   archive: 20/26 (20240402)
+[14:56:40]   archive: 26/26 (20260915)
+[14:56:43] Bangalore / bankbazaar: live page
+[14:56:44]   live page: 10 row(s) parsed
+[14:57:00]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://www.bankbazaar.com/gold-rate-bangalore.
+[14:57:17]   retry 2/3 URLError https://web.archive.org/cdx/search/cdx?url=https://www.bankbazaar.com/gold-rate-bangalore.
+[14:57:36]   retry 3/3 URLError https://web.archive.org/cdx/search/cdx?url=https://www.bankbazaar.com/gold-rate-bangalore.
+[14:57:36]   archive: 0 captures listed, 0 chosen (~weekly), 0 to read now
+[14:57:36] Tirupati: collecting
+[14:57:36] Tirupati / goodreturns: live page
+[14:57:38]   live page: 10 row(s) parsed
+[14:57:54]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://www.goodreturns.in/gold-rates/tirupati.
+[14:58:11]   retry 2/3 URLError https://web.archive.org/cdx/search/cdx?url=https://www.goodreturns.in/gold-rates/tirupati.
+[14:58:30]   retry 3/3 URLError https://web.archive.org/cdx/search/cdx?url=https://www.goodreturns.in/gold-rates/tirupati.
+[14:58:30]   archive: 0 captures listed, 0 chosen (~weekly), 0 to read now
+[14:58:30] Tirupati / bankbazaar: live page
+[14:58:32]   live page: 10 row(s) parsed
+[14:58:47]   retry 1/3 URLError https://web.archive.org/cdx/search/cdx?url=https://www.bankbazaar.com/gold-rate-tirupati.h
+[14:58:51]   archive: 4 captures listed, 4 chosen (~weekly), 4 to read now
+[14:58:59]   archive: 4/4 (20250107)
+[14:59:07] Tirupati FAILED: RuntimeError: only 20 valid observations from bankbazaar
 Wrote /home/runner/work/Gold_Tracker/Gold_Tracker/site/data/data.json
- - Gold BeES: 2026-10-15: NSE bhavcopy unavailable (TimeoutError)
- - Gold BeES: 2026-10-16: NSE bhavcopy unavailable (TimeoutError)
- - Gold BeES: 2026-10-19: NSE bhavcopy unavailable (TimeoutError)
- - Gold BeES: 2026-10-21: NSE bhavcopy unavailable (TimeoutError)
- - Gold BeES: 2026-10-23: NSE bhavcopy unavailable (TimeoutError)
- - Gold BeES: NSE ETF security list unavailable (TimeoutError); ISIN not re-verified this run
- - Bangalore / goodreturns: live page failed — page fetched but no 22K table recognised; keeping cached data
- - Bangalore refresh failed (RuntimeError: only 0 valid observations from bankbazaar); kept last valid data
- - Tirupati / goodreturns: live page failed — page fetched but no 22K table recognised; keeping cached data
- - Tirupati refresh failed (RuntimeError: only 0 valid observations from bankbazaar); kept last valid data
+ - Bangalore / bankbazaar: Wayback index unavailable (URLError)
+ - Tirupati / goodreturns: Wayback index unavailable (URLError)
+ - Tirupati refresh failed (RuntimeError: only 20 valid observations from bankbazaar); kept last valid data

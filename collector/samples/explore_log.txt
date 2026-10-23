@@ -1,0 +1,413 @@
+[14:59:07] explore: goodreturns blr
+[14:59:22]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=goodreturns.in/gold-rates/bangalore.html&from=2
+[14:59:23] explore: goodreturns bengaluru
+[14:59:38]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=goodreturns.in/gold-rates/bengaluru.html&from=2
+[14:59:38]   retry 1/1 HTTPError https://www.goodreturns.in/gold-rates/bengaluru.html
+[14:59:38] explore: goodreturns tpt
+[14:59:39] explore: goodreturns kannada blr
+[14:59:54]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=kannada.goodreturns.in/gold-rates/bangalore.htm
+[14:59:55] explore: goodreturns hindi blr
+[15:00:10]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=hindi.goodreturns.in/gold-rates/bangalore.html&
+[15:00:10] explore: goodreturns telugu tpt
+[15:00:26]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=telugu.goodreturns.in/gold-rates/tirupati.html&
+[15:00:26] explore: goodreturns tamil blr
+[15:00:41]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=tamil.goodreturns.in/gold-rates/bangalore.html&
+[15:00:42] explore: bankbazaar blr
+[15:00:57]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=bankbazaar.com/gold-rate-bangalore.html&from=20
+[15:00:57] explore: bankbazaar tpt
+[15:01:12]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=bankbazaar.com/gold-rate-tirupati.html&from=202
+[15:01:13] explore: bankbazaar ndtv blr
+[15:01:28]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=ndtv.bankbazaar.com/gold-rate-bangalore.html&fr
+[15:01:29] explore: bankbazaar bankdb blr
+[15:01:30] explore: bankbazaar quikr blr
+[15:01:45]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=quikrcars.bankbazaar.com/gold-rate-bangalore.ht
+[15:01:46] explore: bankbazaar zigwheels blr
+[15:02:01]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=zigwheels.bankbazaar.com/gold-rate-bangalore.ht
+[15:02:02] explore: bankbazaar ndtv tpt
+[15:02:17]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=ndtv.bankbazaar.com/gold-rate-tirupati.html&fro
+[15:02:18] explore: bankbazaar bankdb tpt
+[15:02:19] explore: goldpriceindia blr
+[15:02:34]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=goldpriceindia.com/gold-price-bangalore.php&fro
+[15:02:35] explore: goldpriceindia tpt
+[15:02:50]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=goldpriceindia.com/gold-price-tirupati.php&from
+[15:02:51] explore: paisabazaar blr
+[15:03:06]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=paisabazaar.com/gold-rate/bangalore/&from=2021&
+[15:03:07]   retry 1/1 HTTPError https://www.paisabazaar.com/gold-rate/bangalore/
+[15:03:07] explore: paisabazaar tpt
+[15:03:22]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=paisabazaar.com/gold-rate/tirupati/&from=2021&f
+[15:03:23]   retry 1/1 HTTPError https://www.paisabazaar.com/gold-rate/tirupati/
+[15:03:23] explore: bajajfinserv blr
+[15:03:38]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=bajajfinserv.in/gold-rate-in-bangalore&from=202
+[15:03:40] explore: bajajfinserv tpt
+[15:04:30]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=bajajfinserv.in/gold-rate-in-tirupati&from=2021
+[15:04:32] explore: businesstoday blr
+[15:04:41] explore: businesstoday tpt
+[15:04:45] explore: aajtak tpt
+[15:04:47] explore: indiatoday blr
+[15:04:50] explore: economictimes blr
+[15:04:52]   retry 1/1 HTTPError https://economictimes.indiatimes.com/wealth/gold-rate-today/bangalore
+[15:04:52] explore: livemint blr
+[15:04:54] explore: financialexpress blr
+[15:05:09]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=financialexpress.com/gold-rate-today/bangalore/
+[15:05:09]   retry 1/1 HTTPError https://www.financialexpress.com/gold-rate-today/bangalore/
+[15:05:09] explore: moneycontrol blr
+[15:05:24]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=moneycontrol.com/news/gold-rates-today/bangalor
+[15:05:25] explore: cleartax blr
+[15:05:41]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=cleartax.in/gold-rate-bangalore&from=2021&filte
+[15:05:42] explore: cleartax tpt
+[15:05:57]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=cleartax.in/gold-rate-tirupati&from=2021&filter
+[15:05:59] explore: groww blr
+[15:06:14]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=groww.in/gold-rates/gold-rate-today-in-bangalor
+[15:06:16] explore: angelone blr
+[15:06:31]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=angelone.in/gold-rates-today/bangalore&from=202
+[15:06:31]   retry 1/1 HTTPError https://www.angelone.in/gold-rates-today/bangalore
+[15:06:31] explore: 5paisa blr
+[15:06:47]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=5paisa.com/gold-rate/bangalore&from=2021&filter
+[15:06:48]   retry 1/1 HTTPError https://www.5paisa.com/gold-rate/bangalore
+[15:06:48] explore: wintwealth blr
+[15:07:03]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=wintwealth.com/gold-rates/bangalore/&from=2021&
+[15:07:04]   retry 1/1 HTTPError https://www.wintwealth.com/gold-rates/bangalore/
+[15:07:04] explore: candere blr
+[15:07:07] explore: policybazaar blr
+[15:07:08] explore: mymoneymantra blr
+[15:07:09]   retry 1/1 HTTPError https://www.mymoneymantra.com/gold-rate-today/bangalore
+[15:07:09] explore: shriram tpt
+[15:07:12] explore: stablemoney blr
+[15:07:27] explore: dialabank blr
+[15:07:50]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=dialabank.com/gold-rate-in-bangalore&from=2021&
+[15:07:53] explore: ibja
+[15:08:08]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=ibjarates.com/&from=2021&filter=statuscode:200&
+[15:08:10] explore: bankbazaar.com domain, gold-rate-(bangalore|tirupati)
+[15:08:25]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=bankbazaar.com&matchType=domain&filter=original
+[15:08:25] explore: goodreturns.in domain, gold-rates/(bangalore|bengaluru|tirupati)
+[15:08:40]   retry 1/1 URLError https://web.archive.org/cdx/search/cdx?url=goodreturns.in&matchType=domain&filter=original
+# Source survey · 2026-10-23T09:29
+
+Internet Archive captures per year (one per day max) and live-page table shapes.
+
+## goodreturns blr — `goodreturns.in/gold-rates/bangalore.html`
+- archive: URLError
+- live: 10 rows parsed by extract_22k; 2 tables
+  - 5 rows: ['Gram', '24K', '22K', '18K'] / ['1', '₹14,248 (-190)', '₹13,060 (-175)', '₹10,686 (-143)']
+  - 11 rows: ['Date', '24K', '22K'] / ['Oct 23, 2026', '₹14,248 (-190)', '₹13,060 (-175)']
+
+## goodreturns bengaluru — `goodreturns.in/gold-rates/bengaluru.html`
+- archive: URLError
+- live: live fetch failed: HTTPError
+
+## goodreturns tpt — `goodreturns.in/gold-rates/tirupati.html`
+- archive: 4 captures · 2022:2, 2023:1, 2024:1 · hosts: www.goodreturns.in(4)
+- live: 10 rows parsed by extract_22k; 2 tables
+  - 5 rows: ['Gram', '24K', '22K', '18K'] / ['1', '₹14,248 (-190)', '₹13,060 (-175)', '₹10,686 (-143)']
+  - 11 rows: ['Date', '24K', '22K'] / ['Oct 23, 2026', '₹14,248 (-190)', '₹13,060 (-175)']
+
+## goodreturns kannada blr — `kannada.goodreturns.in/gold-rates/bangalore.html`
+- archive: URLError
+- live: 0 rows parsed by extract_22k; 2 tables
+  - 5 rows: ['ಗ್ರಾಂ', '24K', '22K', '18K'] / ['1', '₹14,248 (-190)', '₹13,060 (-175)', '₹10,686 (-143)']
+  - 11 rows: ['ದಿನಾಂಕ', '24 ಕ್ಯಾರಟ್', '22 ಕ್ಯಾರಟ್'] / ['ಅಕ್ಟೋಬರ್ 23, 2026', '₹14,248 (-190)', '₹13,060 (-175)']
+
+## goodreturns hindi blr — `hindi.goodreturns.in/gold-rates/bangalore.html`
+- archive: URLError
+- live: 0 rows parsed by extract_22k; 2 tables
+  - 5 rows: ['ग्राम', '24K', '22K', '18K'] / ['1', '₹14,248 (-190)', '₹13,060 (-175)', '₹10,686 (-143)']
+  - 11 rows: ['दिनांक', '24 कैरट', '22 कैरट'] / ['अक्टूबर 23, 2026', '₹14,248 (-190)', '₹13,060 (-175)']
+
+## goodreturns telugu tpt — `telugu.goodreturns.in/gold-rates/tirupati.html`
+- archive: URLError
+- live: 0 rows parsed by extract_22k; 2 tables
+  - 5 rows: ['గ్రాము', '24K', '22K', '18K'] / ['1', '₹14,248 (-190)', '₹13,060 (-175)', '₹10,686 (-143)']
+  - 11 rows: ['తేదీ', '24 క్యారెట్ల', '22 క్యారెట్ల'] / ['అక్టోబర్ 23, 2026', '₹14,248 (-190)', '₹13,060 (-175)']
+
+## goodreturns tamil blr — `tamil.goodreturns.in/gold-rates/bangalore.html`
+- archive: URLError
+- live: 0 rows parsed by extract_22k; 2 tables
+  - 5 rows: ['கிராம்', '24K', '22K', '18K'] / ['1', '₹14,248 (-190)', '₹13,060 (-175)', '₹10,686 (-143)']
+  - 11 rows: ['தேதி', '24 கேரட்', '22 கேரட்'] / ['அக்டோபர் 23, 2026', '₹14,248 (-190)', '₹13,060 (-175)']
+
+## bankbazaar blr — `bankbazaar.com/gold-rate-bangalore.html`
+- archive: URLError
+- live: 10 rows parsed by extract_22k; 5 tables
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,170', '₹ 13,345', '₹ 175▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,829', '₹ 14,012', '₹ 183▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 10,775', '₹ 10,919', '₹ 144▼']
+  - 11 rows: ['Date', 'Standard Gold (22K) (8 grams)', 'Pure Gold (24K) (8 grams)', '18K Gold (18K) (8 grams)'] / ['23 Oct 2026', '₹ 1,05,360(1,400 ▼)', '₹ 1,10,632(1,464 ▼)', '₹ 86,200(1,152 ▼)']
+  - 11 rows: ['Month', '18K Price (Rs./g)', '22K Price (Rs./g)', '24K Price (Rs./g)'] / ['Oct-26', 'Rs.10,814', 'Rs.13,217', 'Rs.14,418']
+
+## bankbazaar tpt — `bankbazaar.com/gold-rate-tirupati.html`
+- archive: URLError
+- live: 10 rows parsed by extract_22k; 4 tables
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,060', '₹ 13,235', '₹ 175▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,713', '₹ 13,897', '₹ 184▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 10,685', '₹ 10,829', '₹ 144▼']
+  - 11 rows: ['Date', 'Standard Gold (22K) (8 grams)', 'Pure Gold (24K) (8 grams)', '18K Gold (18K) (8 grams)'] / ['23 Oct 2026', '₹ 1,04,480(1,400 ▼)', '₹ 1,09,704(1,472 ▼)', '₹ 85,480(1,152 ▼)']
+
+## bankbazaar ndtv blr — `ndtv.bankbazaar.com/gold-rate-bangalore.html`
+- archive: URLError
+- live: 10 rows parsed by extract_22k; 5 tables
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,170', '₹ 13,345', '₹ 175▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,829', '₹ 14,012', '₹ 183▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 10,775', '₹ 10,919', '₹ 144▼']
+  - 11 rows: ['Date', 'Standard Gold (22K) (8 grams)', 'Pure Gold (24K) (8 grams)', '18K Gold (18K) (8 grams)'] / ['23 Oct 2026', '₹ 1,05,360(1,400 ▼)', '₹ 1,10,632(1,464 ▼)', '₹ 86,200(1,152 ▼)']
+  - 11 rows: ['Month', '18K Price (Rs./g)', '22K Price (Rs./g)', '24K Price (Rs./g)'] / ['Oct-26', 'Rs.10,814', 'Rs.13,217', 'Rs.14,418']
+
+## bankbazaar bankdb blr — `bankdb.bankbazaar.com/gold-rate-bangalore.html`
+- archive: 0 captures ·  · hosts: 
+- live: 10 rows parsed by extract_22k; 5 tables
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,170', '₹ 13,345', '₹ 175▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,829', '₹ 14,012', '₹ 183▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 10,775', '₹ 10,919', '₹ 144▼']
+  - 11 rows: ['Date', 'Standard Gold (22K) (8 grams)', 'Pure Gold (24K) (8 grams)', '18K Gold (18K) (8 grams)'] / ['23 Oct 2026', '₹ 1,05,360(1,400 ▼)', '₹ 1,10,632(1,464 ▼)', '₹ 86,200(1,152 ▼)']
+  - 11 rows: ['Month', '18K Price (Rs./g)', '22K Price (Rs./g)', '24K Price (Rs./g)'] / ['Oct-26', 'Rs.10,814', 'Rs.13,217', 'Rs.14,418']
+
+## bankbazaar quikr blr — `quikrcars.bankbazaar.com/gold-rate-bangalore.html`
+- archive: URLError
+- live: 10 rows parsed by extract_22k; 5 tables
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,170', '₹ 13,345', '₹ 175▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,829', '₹ 14,012', '₹ 183▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 10,775', '₹ 10,919', '₹ 144▼']
+  - 11 rows: ['Date', 'Standard Gold (22K) (8 grams)', 'Pure Gold (24K) (8 grams)', '18K Gold (18K) (8 grams)'] / ['23 Oct 2026', '₹ 1,05,360(1,400 ▼)', '₹ 1,10,632(1,464 ▼)', '₹ 86,200(1,152 ▼)']
+  - 11 rows: ['Month', '18K Price (Rs./g)', '22K Price (Rs./g)', '24K Price (Rs./g)'] / ['Oct-26', 'Rs.10,814', 'Rs.13,217', 'Rs.14,418']
+
+## bankbazaar zigwheels blr — `zigwheels.bankbazaar.com/gold-rate-bangalore.html`
+- archive: URLError
+- live: 10 rows parsed by extract_22k; 5 tables
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,170', '₹ 13,345', '₹ 175▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,829', '₹ 14,012', '₹ 183▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 10,775', '₹ 10,919', '₹ 144▼']
+  - 11 rows: ['Date', 'Standard Gold (22K) (8 grams)', 'Pure Gold (24K) (8 grams)', '18K Gold (18K) (8 grams)'] / ['23 Oct 2026', '₹ 1,05,360(1,400 ▼)', '₹ 1,10,632(1,464 ▼)', '₹ 86,200(1,152 ▼)']
+  - 11 rows: ['Month', '18K Price (Rs./g)', '22K Price (Rs./g)', '24K Price (Rs./g)'] / ['Oct-26', 'Rs.10,814', 'Rs.13,217', 'Rs.14,418']
+
+## bankbazaar ndtv tpt — `ndtv.bankbazaar.com/gold-rate-tirupati.html`
+- archive: URLError
+- live: 10 rows parsed by extract_22k; 4 tables
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,060', '₹ 13,235', '₹ 175▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,713', '₹ 13,897', '₹ 184▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 10,685', '₹ 10,829', '₹ 144▼']
+  - 11 rows: ['Date', 'Standard Gold (22K) (8 grams)', 'Pure Gold (24K) (8 grams)', '18K Gold (18K) (8 grams)'] / ['23 Oct 2026', '₹ 1,04,480(1,400 ▼)', '₹ 1,09,704(1,472 ▼)', '₹ 85,480(1,152 ▼)']
+
+## bankbazaar bankdb tpt — `bankdb.bankbazaar.com/gold-rate-tirupati.html`
+- archive: 0 captures ·  · hosts: 
+- live: 10 rows parsed by extract_22k; 4 tables
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,060', '₹ 13,235', '₹ 175▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 13,713', '₹ 13,897', '₹ 184▼']
+  - 4 rows: ['Gram', 'Today', 'Yesterday', 'Price Change'] / ['1 gram', '₹ 10,685', '₹ 10,829', '₹ 144▼']
+  - 11 rows: ['Date', 'Standard Gold (22K) (8 grams)', 'Pure Gold (24K) (8 grams)', '18K Gold (18K) (8 grams)'] / ['23 Oct 2026', '₹ 1,04,480(1,400 ▼)', '₹ 1,09,704(1,472 ▼)', '₹ 85,480(1,152 ▼)']
+
+## goldpriceindia blr — `goldpriceindia.com/gold-price-bangalore.php`
+- archive: URLError
+- live: 0 rows parsed by extract_22k; 12 tables
+  - 8 rows: ['Weight', '24K Gold Price', '22K Gold Price'] / ['1 gram', '₹1,400.80', '₹1,284.07']
+  - 5 rows: ['₹14,008▼ Change: Down by -270 (-1.93%)'] / ['₹14,008 - 24K Gold Price in Bangalore']
+  - 2 rows: [''] / ['']
+  - 4 rows: ['₹1,401 - gold price per 1 grams'] / ['₹14,008 - gold price per 10 grams']
+  - 4 rows: ['₹1,334 - gold price per gram'] / ['₹13,341 - gold price per 10 grams']
+  - 2 rows: ['₹14,278 - 24K Gold Price in Bangalore'] / ['₹13,598 - 22K Gold Price in Bangalore']
+  - 12 rows: ['Period', '24 Karat', '22 Karat', 'Change'] / ['Today Gold Price', '₹14,008▼', '₹13,341▼', '-163 (-1.16%)']
+  - 5 rows: ['Type', 'Period', '₹/10 g'] / ['Lowest Gold Price on', '22 Oct 2026', '₹14,171']
+
+## goldpriceindia tpt — `goldpriceindia.com/gold-price-tirupati.php`
+- archive: URLError
+- live: 0 rows parsed by extract_22k; 12 tables
+  - 8 rows: ['Weight', '24K Gold Price', '22K Gold Price'] / ['1 gram', '₹1,400.80', '₹1,284.07']
+  - 5 rows: ['₹14,008▼ Change: Down by -270 (-1.93%)'] / ['₹14,008 - 24K Gold Price in Tirupati']
+  - 2 rows: [''] / ['']
+  - 4 rows: ['₹1,401 - gold price per 1 grams'] / ['₹14,008 - gold price per 10 grams']
+  - 4 rows: ['₹1,334 - gold price per gram'] / ['₹13,341 - gold price per 10 grams']
+  - 2 rows: ['₹14,278 - 24K Gold Price in Tirupati'] / ['₹13,598 - 22K Gold Price in Tirupati']
+  - 12 rows: ['Period', '24 Karat', '22 Karat', 'Change'] / ['Today Gold Price', '₹14,008▼', '₹13,341▼', '-163 (-1.16%)']
+  - 5 rows: ['Type', 'Period', '₹/10 g'] / ['Lowest Gold Price on', '22 Oct 2026', '₹14,171']
+
+## paisabazaar blr — `paisabazaar.com/gold-rate/bangalore/`
+- archive: URLError
+- live: live fetch failed: HTTPError
+
+## paisabazaar tpt — `paisabazaar.com/gold-rate/tirupati/`
+- archive: URLError
+- live: live fetch failed: HTTPError
+
+## bajajfinserv blr — `bajajfinserv.in/gold-rate-in-bangalore`
+- archive: URLError
+- live: 0 rows parsed by extract_22k; 4 tables
+  - 11 rows: ['Year', 'Price 24 carat per 10 grams'] / ['2025', 'Rs. 1,05,000 to Rs. 1,30,000']
+  - 5 rows: ['Parameter', '18K Gold', '22K Gold', '24K Gold'] / ['Purity', '75%', '91.6%', '99.9%']
+  - 3 rows: ['Gold rate in Andhra Pradesh', 'Gold rate in Tamil Nadu', 'Gold rate in Jharkhand'] / ['Gold rate in Maharashtra', 'Gold rate in Karnataka', 'Gold rate in Kerala']
+  - 3 rows: ['Gold rate in Vadodara', 'Gold rate in Madurai', 'Gold rate in Trichy'] / ['Gold rate in Chennai', 'Gold rate in Pune', 'Gold rate in Vijayawada']
+
+## bajajfinserv tpt — `bajajfinserv.in/gold-rate-in-tirupati`
+- archive: URLError
+- live: 0 rows parsed by extract_22k; 4 tables
+  - 11 rows: ['Year', 'Price 24 carat per 10 grams'] / ['2025', 'Rs. 1,05,000 to Rs. 1,30,000']
+  - 5 rows: ['Parameter', '18K Gold', '22K Gold', '24K Gold'] / ['Purity', '75%', '91.6%', '99.9%']
+  - 3 rows: ['Gold Rate in Andhra Pradesh', 'Gold Rate in Tamil Nadu', 'Gold Rate in Jharkhand'] / ['Gold Rate in Bihar', 'Gold Rate in Delhi', 'Gold Rate in Telangana']
+  - 3 rows: ['Gold Rate in Khamgaon', 'Gold Rate in Etah', 'Gold Rate in Gondia'] / ['Gold Rate in Zaheerabad', 'Gold Rate in Tezpur', 'Gold Rate in Shamli']
+
+## businesstoday blr — `businesstoday.in/commodity/gold-rate-in-bangalore-today`
+- archive: 2 captures · 2026:2 · hosts: www.businesstoday.in(2)
+- live: 0 rows parsed by extract_22k; 4 tables
+  - 11 rows: ['Bangalore', 'GOLD 22 carat', 'Changes(Rs)', 'GOLD 24 carat'] / ['Oct 22, 2026', '₹1,34,040', '0', '₹1,46,220']
+  - 535 rows: ['CITY', 'GOLD 22 carat/10 grams', 'GOLD 24 carat/10 grams'] / ['Agra', '₹1,32,490', '₹1,44,520']
+  - 18 rows: ['STATE', 'GOLD 22 carat/10 grams', 'GOLD 24 carat/10 grams'] / ['Uttar-pradesh', '₹1,32,490', '₹1,44,520']
+  - 6 rows: ['Feature', 'Physical Gold & Silver (Coins, Bars, Jewellery)', 'Gold & Silver ETFs & FoFs'] / ['Asset Form & Primary Use', 'Tangible metals ideal for personal possession, gifting, and investment (wealth storage).', 'Dematerialised units designed strictly for financial investment and portfolio hedging.']
+
+## businesstoday tpt — `businesstoday.in/commodity/gold-rate-in-tirupati-today`
+- archive: 3 captures · 2026:3 · hosts: www.businesstoday.in(3)
+- live: 0 rows parsed by extract_22k; 4 tables
+  - 11 rows: ['Tirupati', 'GOLD 22 carat', 'Changes(Rs)', 'GOLD 24 carat'] / ['Oct 22, 2026', '₹1,34,040', '0', '₹1,46,220']
+  - 535 rows: ['CITY', 'GOLD 22 carat/10 grams', 'GOLD 24 carat/10 grams'] / ['Agra', '₹1,32,490', '₹1,44,520']
+  - 18 rows: ['STATE', 'GOLD 22 carat/10 grams', 'GOLD 24 carat/10 grams'] / ['Uttar-pradesh', '₹1,32,490', '₹1,44,520']
+  - 6 rows: ['Feature', 'Physical Gold & Silver (Coins, Bars, Jewellery)', 'Gold & Silver ETFs & FoFs'] / ['Asset Form & Primary Use', 'Tangible metals ideal for personal possession, gifting, and investment (wealth storage).', 'Dematerialised units designed strictly for financial investment and portfolio hedging.']
+
+## aajtak tpt — `aajtak.in/commodity/gold-rate-in-tirupati-today`
+- archive: 4 captures · 2024:1, 2025:2, 2026:1 · hosts: www.aajtak.in(4)
+- live: 0 rows parsed by extract_22k; 1 tables
+  - 11 rows: ['Tirupati 2026', 'GOLD 24 carat', 'Changes (Rs)', 'GOLD 22 carat'] / ['Oct 22', '₹1,46,220', '↔₹0', '₹1,34,040']
+
+## indiatoday blr — `indiatoday.in/commodity/gold-rate-in-bangalore-today`
+- archive: 51 captures · 2026:51 · hosts: www.indiatoday.in(51)
+- live: 10 rows parsed by extract_22k; 7 tables
+  - 11 rows: ['DATE', '24K/10g', '22K/10g', '18K/10g'] / ['Oct 22, 2026', '₹1,46,220 0', '₹1,34,040 0', '₹1,09,665 0']
+  - 5 rows: ['QUANTITY', 'TODAY', 'YESTERDAY', 'CHANGE'] / ['14 carat', '₹84,303 /10g', '₹85,295 /10g', '992 /10g']
+  - 5 rows: ['QUANTITY', 'TODAY', 'YESTERDAY', 'CHANGE'] / ['1 gram', '₹14,452', '₹14,622', '170']
+  - 5 rows: ['QUANTITY', 'TODAY', 'YESTERDAY', 'CHANGE'] / ['1 gram', '₹13,249', '₹13,404', '155']
+  - 5 rows: ['QUANTITY', 'TODAY', 'YESTERDAY', 'CHANGE'] / ['1 gram', '₹10,839', '₹10,966', '127']
+  - 535 rows: ['CITY', '24K', '22K', '18K'] / ['Adilabad', '₹1,44,370 /10g', '₹1,32,340 /10g', '₹1,08,277 /10g']
+  - 18 rows: ['STATE', '24K', '22K', '18K'] / ['Telangana', '₹1,44,370 /10g', '₹1,32,340 /10g', '₹1,08,277 /10g']
+
+## economictimes blr — `economictimes.indiatimes.com/wealth/gold-rate-today/bangalore`
+- archive: 0 captures ·  · hosts: 
+- live: live fetch failed: HTTPError
+
+## livemint blr — `livemint.com/gold-prices/bangalore`
+- archive: 581 captures · 2023:2, 2024:49, 2025:261, 2026:269 · hosts: www.livemint.com(581)
+- live: 0 rows parsed by extract_22k; 18 tables
+  - 5 rows: ['Gram', 'Today', 'Yesterday', 'Change'] / ['1', '₹ 14,284.70', '₹ 14,339.30', '-54.60']
+  - 5 rows: ['Gram', 'Today', 'Yesterday', 'Change'] / ['1', '₹ 13,084.79', '₹ 13,134.80', '-50.01']
+  - 5 rows: ['Gram', 'Today', 'Yesterday', 'Change'] / ['1', '₹ 10,713.53', '₹ 10,754.48', '-40.95']
+  - 8 rows: ['Date', '22K', '24K'] / ['10 days', '₹ 1,34,083.07', '₹ 1,46,378.90']
+  - 16 rows: ['Date', '22K', '24K'] / ['Oct 23, 2026', '₹ 13,084.78 (-50.01)', '₹ 14,284.70 (-54.60)']
+  - 7 rows: ['Date', '22K', '24K'] / ['1 October', '₹ 1,35,637.62', '₹ 1,48,076.00']
+  - 7 rows: ['Date', '22K', '24K'] / ['1 September', '₹ 1,39,085.44', '₹ 1,51,840.00']
+  - 7 rows: ['Date', '22K', '24K'] / ['1 August', '₹ 1,29,521.48', '₹ 1,41,399.00']
+
+## financialexpress blr — `financialexpress.com/gold-rate-today/bangalore/`
+- archive: URLError
+- live: live fetch failed: HTTPError
+
+## moneycontrol blr — `moneycontrol.com/news/gold-rates-today/bangalore/`
+- archive: URLError
+- live: 0 rows parsed by extract_22k; 10 tables
+  - 12 rows: ['City Name', 'Standard Gold Rate (22K)Change from the previous day', 'Pure Gold Rate (24K)Change from the previous day'] / ['', '1 Gram', '8 Grams', '1 Gram']
+  - 2 rows: ['Date', 'Standard Gold Rate (22K)Change from the previous day', 'Pure Gold Rate (24K)Change from the previous day'] / ['', '1 gram', '8 grams', '1 gram']
+  - 7 rows: ['Gold Rates', '24K', '22K'] / ['Oct 01', '₹14821', '₹13576']
+  - 7 rows: ['Gold Rates', '24K', '22K'] / ['Sep 01', '₹15287', '₹14003']
+  - 7 rows: ['Gold Rates', '24K', '22K'] / ['Aug 01', '₹14284', '₹13084']
+  - 7 rows: ['Gold Rates', '24K', '22K'] / ['Jul 01', '₹14366', '₹13159']
+
+## cleartax blr — `cleartax.in/gold-rate-bangalore`
+- archive: URLError
+- live: 0 rows parsed by extract_22k; 8 tables
+  - 6 rows: ['Weight', '24 Carat', '22 Carat', '18 Carat'] / ['1 g', '₹14,816', '₹13,571', '₹11,110']
+  - 11 rows: ['Date', '24 Carat', '22 Carat', '18 Carat'] / ['21 Oct 2026', '₹1,49,725( ₹-1910)', '₹1,37,148( ₹-1750)', '₹1,12,294( ₹-1432)']
+  - 6 rows: ['Jewellery Type', 'Factors Affecting Making Charges'] / ['Plain Jewellery', 'Design complexity and manufacturing technique']
+  - 4 rows: ['Gold Purity', 'Fineness', 'Gold Content', 'Common Use'] / ['24K Gold', '999', 'Very high purity, 99.9% Gold', 'Bars, coins and investment products']
+  - 8 rows: ['Feature', 'KDM Gold', 'Hallmarked Gold'] / ['Meaning', 'Refers to gold jewellery historically made using cadmium solder', 'Gold certified for purity/fineness under the BIS hallmarking system']
+  - 7 rows: ['Area', 'Gold Shopping Highlights'] / ['Commercial Street & Dickenson Road', "One of Bangalore's popular and busy areas for gold and jewellery shopping, with a wide range of showrooms."]
+  - 5 rows: ['Physical Gold', 'How it works', 'Consideration'] / ['Gold Jewellery', 'Buy gold jewellery from a jeweller for personal use or wealth holding', 'Making charges, GST, storage and resale value']
+  - 6 rows: ['Electronic Gold', 'How it works', 'Consideration'] / ['Digital Gold', 'Buy fractional quantities of gold online and hold them digitally', 'Platform, storage/custody arrangements and applicable charges']
+
+## cleartax tpt — `cleartax.in/gold-rate-tirupati`
+- archive: URLError
+- live: 0 rows parsed by extract_22k; 2 tables
+  - 6 rows: ['Weight', '24 Carat', '22 Carat', '18 Carat'] / ['1 g', '₹14,816', '₹13,571', '₹11,110']
+  - 11 rows: ['Date', '24 Carat', '22 Carat', '18 Carat'] / ['21 Oct 2026', '₹1,49,725( ₹-1910)', '₹1,37,148( ₹-1750)', '₹1,12,294( ₹-1432)']
+
+## groww blr — `groww.in/gold-rates/gold-rate-today-in-bangalore`
+- archive: URLError
+- live: 9 rows parsed by extract_22k; 6 tables
+  - 6 rows: ['Gram', '24k', '22k', '18k'] / ['1 Gram', '₹14,248.00 (1.32%)', '₹13,061.00 (1.31%)', '₹10,686.00 (1.32%)']
+  - 11 rows: ['Date', '24K / 10 Gram', '22K / 10 Gram', '18K / 10 Gram'] / ['Today', '₹1,42,480.00 (1.32%)', '₹1,30,610.00 (1.31%)', '₹1,06,860.00 (1.32%)']
+  - 11 rows: ['', ''] / ['Bagalkot', '₹1,30,610.00-1,740.00(1.31%)']
+  - 7 rows: ['What you pay for', 'Physical Gold (24K, 10gm)', 'ETF Gold (24K, 10gm)'] / ['Value before tax', '₹1,42,480.00', '₹1,42,480.00']
+  - 21 rows: ['City', '24K', '22K', '18K'] / ['Hosur', '₹14,248.00', '₹13,061.00', '₹10,686.00']
+  - 64 rows: ['Financial Year', '24K Gold Rate (₹ per 10g)', 'YoY Change'] / ['1964-65', '₹63.25', '-']
+
+## angelone blr — `angelone.in/gold-rates-today/bangalore`
+- archive: URLError
+- live: live fetch failed: HTTPError
+
+## 5paisa blr — `5paisa.com/gold-rate/bangalore`
+- archive: URLError
+- live: live fetch failed: HTTPError
+
+## wintwealth blr — `wintwealth.com/gold-rates/bangalore/`
+- archive: URLError
+- live: live fetch failed: HTTPError
+
+## candere blr — `candere.com/gold-rate/bangalore`
+- archive: 0 captures ·  · hosts: 
+- live: 0 rows parsed by extract_22k; 14 tables
+  - 5 rows: ['Gold Purity per 10g', 'today', 'yesterday', 'Last 7 Days'] / ['24K', '₹142,580', '₹144,490', '₹146,329']
+  - 5 rows: ['Gold Purity per 10g', 'yesterday', 'Last Week', 'Last Month'] / ['24K', '₹144,490', '₹146,329', '₹153,964']
+  - 5 rows: ['24K Gold Purity', 'today', 'yesterday', 'rate Change'] / ['1 gm', '₹14,258', '₹14,449', '- ₹191']
+  - 5 rows: ['22K Gold Purity', 'today', 'yesterday', 'rate Change'] / ['1 gm', '₹13,060', '₹13,235', '- ₹175']
+  - 5 rows: ['18K Gold Purity', 'today', 'yesterday', 'rate Change'] / ['1 gm', '₹10,694', '₹10,837', '- ₹143']
+  - 5 rows: ['14K Gold Purity', 'today', 'yesterday', 'rate Change'] / ['1 gm', '₹8,312', '₹8,424', '- ₹112']
+  - 11 rows: ['Date', '24K', '22K', '18K'] / ['Oct 23, 2026', '₹14258', '₹13060', '₹10694']
+  - 3 rows: ['Term', '24K', '22K', '18K'] / ['10 Days', '₹14665', '₹13433', '₹10999']
+
+## policybazaar blr — `policybazaar.com/gold-rate/bangalore/`
+- archive: 1 captures · 2026:1 · hosts: www.policybazaar.com(1)
+- live: 10 rows parsed by extract_22k; 4 tables
+  - 5 rows: ['Gram', 'Today ( -1.88% )', 'Yesterday'] / ['1 Gram', '₹ 14,012', '₹ 14,280']
+  - 5 rows: ['Gram', 'Today ( -1.88% )', 'Yesterday'] / ['1 Gram', '₹ 13,345', '₹ 13,600']
+  - 4 rows: ['Period', '24k Pure Gold', '22k Pure Gold'] / ['Highest in October', '₹14,690', '₹13,990']
+  - 11 rows: ['Date', '24k - 10 Gram Rates', '22k - 10 Gram Rates'] / ['22 October 2026', '₹ 1,40,120', '₹ 1,33,450']
+
+## mymoneymantra blr — `mymoneymantra.com/gold-rate-today/bangalore`
+- archive: 0 captures ·  · hosts: 
+- live: live fetch failed: HTTPError
+
+## shriram tpt — `shriramfinance.in/gold-rate-in-tirupati`
+- archive: 1 captures · 2026:1 · hosts: www.shriramfinance.in(1)
+- live: 11 rows parsed by extract_22k; 7 tables
+  - 5 rows: ['Gram', '22 Carat Gold Price Yesterday', '22 Carat Gold Price Today', 'Price Change'] / ['1 Gram', '₹13,070.80', '₹13,070.80', '₹0.00']
+  - 5 rows: ['Gram', '24 Carat Gold Price Yesterday', '24 Carat Gold Price Today', 'Price Change'] / ['1 Gram', '₹14,269.40', '₹14,269.40', '₹0.00']
+  - 12 rows: ['Date', '22K Gold Price', '24K Gold Price'] / ['22 Oct, 2026', '( ) ₹13,070.80', '( ) ₹14,269.40']
+  - 7 rows: ['Term', '22K Gold Price', '24K Gold Price'] / ['10 Days', '₹13,562.40', '₹14,806.10']
+  - 7 rows: ['Gold Rate', '22K', '24K'] / ['1st Oct rate', '₹ 13,569.40', '₹ 14,813.80']
+  - 7 rows: ['Gold Rate', '22K', '24K'] / ['1st Sept rate', '₹ 14,031.60', '₹ 15,318.30']
+  - 7 rows: ['Gold Rate', '22K', '24K'] / ['1st Aug rate', '₹ 13,086.00', '₹ 14,286.00']
+
+## stablemoney blr — `stablemoney.in/blog/rate-of-gold-today-in-bangalore`
+- archive: 1 captures · 2024:1 · hosts: stablemoney.in(1)
+- live: 2 rows parsed by extract_22k; 3 tables
+  - 4 rows: ['Purity', 'Price per Gram (₹)', 'Price per 10 Grams (₹)'] / ['24K', '₹14,438', '₹1,44,380']
+  - 3 rows: ['Date', '22K Gold (₹/10g)', '24K Gold (₹/10g)', '18K Gold (₹/10g)'] / ['22 Oct 2026', '₹1,32,350', '₹1,44,380', '₹1,08,290']
+  - 6 rows: ['City', '22K Gold (₹/gram)', '24K Gold (₹/gram)', '18K Gold (₹/gram)'] / ['Delhi', '₹13,075', '₹14,263', '₹10,686']
+
+## dialabank blr — `dialabank.com/gold-rate-in-bangalore`
+- archive: URLError
+- live: 0 rows parsed by extract_22k; 6 tables
+  - 5 rows: ['Gram', '24 Carat Gold Today', '24 Carat Gold Yesterday', 'Daily Price Change'] / ['1 gram', '₹4,786', '₹4,787', '₹ -1']
+  - 5 rows: ['Gram', '22 Carat Gold Today', '22 Carat Gold Yesterday', 'Daily Price Change'] / ['1 gram', '₹4,686', '₹4,687', '₹ -1']
+  - 5 rows: ['Gold', 'Today', 'Yesterday', 'Rate Change'] / ['Standard Gold (22 K) ( 1 gram )', '₹ 4,610', '₹ 4,560', '₹ 50 ↑']
+  - 12 rows: ['Date', 'STANDARD GOLD 22K', 'PURE GOLD 24K'] / ['1 GRAM', '10 GRAM', '1 GRAM', '10 GRAM']
+  - 12 rows: ['Bank / NBFC', 'Rate Per Gram', 'Interest Rate', 'Gold Loan Tenure'] / ['HDFC Gold Loan', '₹ 3,506 to ₹ 4,621', '0.099', '3 to 24 months']
+  - 5 rows: ['MUTUAL FUNDS', 'GOLD'] / ['Complicated', 'Less complicated']
+
+## ibja — `ibjarates.com/`
+- archive: URLError
+- live: 0 rows parsed by extract_22k; 5 tables
+  - 9 rows: ['Purity', 'AM', 'PM'] / ['Gold 999', '141448', '']
+  - 5 rows: ['', '999', '995', '916'] / ['22/10/2026', '143152', '142579', '131127']
+  - 5 rows: ['', '999', '995', '916'] / ['22/10/2026', '142694', '142123', '130708']
+  - 3 rows: ['Previous Dates Rate'] / ['AM PM']
+  - 2 rows: ['Cookie name', 'Expire time', 'Purpose'] / ['UserCookiesIbjarates', '30 Days', 'This Cookies is use to store your theme preference.']
+
+## bankbazaar.com domain, gold-rate-(bangalore|tirupati)
+- archive: URLError
+
+## goodreturns.in domain, gold-rates/(bangalore|bengaluru|tirupati)
+- archive: URLError
+
