@@ -55,6 +55,13 @@ test("weekly: unfinished current week is partial and not ranked", () => {
   assert.equal(A.lastCompleteIndex(w), 0);
 });
 
+test("weekly: a change of source marks the splice week and never ranks it", () => {
+  const pts = [["2025-01-10", 100], ["2025-01-17", 101], ["2025-01-24", 103], ["2025-01-31", 104]];
+  const w = A.toWeekly(pts, "2025-02-02", ["2025-01-20"]);
+  assert.deepEqual(w.map((x) => x.status), ["first", "ok", "splice", "ok"]);
+  assert.deepEqual(A.rankable(w).map((x) => x.key), ["2025-W03", "2025-W05"]);
+});
+
 test("weekly: ignores invalid prices instead of inventing them", () => {
   const w = A.toWeekly([["2025-01-06", 100], ["2025-01-13", NaN], ["2025-01-14", 0], ["2025-01-20", 101]], "2025-02-01");
   assert.deepEqual(w.map((x) => x.status), ["first", "missing", "gap"]);

@@ -74,7 +74,7 @@ function seriesOf(id) { return DATA?.series?.[id] || null; }
 function weeksOf(id) {
   if (!cache.has(id)) {
     const s = seriesOf(id);
-    cache.set(id, s ? A.toWeekly(s.points, DATA.as_of_date) : []);
+    cache.set(id, s ? A.toWeekly(s.points, DATA.as_of_date, s.splices || []) : []);
   }
   return cache.get(id);
 }
@@ -233,7 +233,7 @@ function renderWeekly(host) {
   const tb = A.topBottomByYear(w, [yr], 5)[yr];
   const yearWeeks = w.filter((k) => k.y === yr);
   const maxAbs = Math.max(0.01, ...A.rankable(w).filter((k) => allYears.includes(k.y)).map((k) => Math.abs(k.ret)));
-  const statusTxt = { ok: "", first: "first week", missing: "no data", gap: "after gap — excluded", partial: "in progress — excluded" };
+  const statusTxt = { ok: "", first: "first week", missing: "no data", gap: "after gap — excluded", partial: "in progress — excluded", splice: "source change — excluded" };
   const lists = (arr) => `<ol>${arr.map((k) => `<li><span>W${k.w}<span class="d">${weekRange(k)}</span></span><span class="num ${rcls(k.ret)}" style="text-align:right">${arrow(k.ret)} ${pct(k.ret)}<span class="d">${k.chg > 0 ? "+" : ""}${inr(k.chg, state.i === "goldbees" ? 2 : 0).replace("₹-", "−₹")}</span></span></li>`).join("") || "<li class='muted'>Not enough weeks</li>"}</ol>`;
   const maxW = Math.max(...allYears.map((y) => A.weeksInIsoYear(y)));
   let heat = `<div class="heat" style="grid-template-columns: 30px repeat(${allYears.length}, minmax(0, 1fr))"><div class="h"></div>${allYears.map((y) => `<div class="h">${y}${y === DATA.ytd_year ? "<br><span class='muted'>YTD</span>" : ""}</div>`).join("")}`;
@@ -422,9 +422,11 @@ function renderData(host) {
         <dt>Usable weekly returns</dt><dd class="num">${cnt("ok")}</dd>
         <dt>Weeks with no data</dt><dd class="num">${cnt("missing")}</dd>
         <dt>Weeks after a gap (excluded)</dt><dd class="num">${cnt("gap")}</dd>
+        ${cnt("splice") ? `<dt>Weeks spanning a source change (excluded)</dt><dd class="num">${cnt("splice")}</dd>` : ""}
         <dt>Week in progress (excluded)</dt><dd class="num">${cnt("partial")}</dd>
       </dl>
-      <h3>Sources</h3><ul class="small">${(s.sources || []).map((q) => `<li><a href="${esc(q.url)}" rel="noopener" target="_blank">${esc(q.label)}</a> — ${esc(q.role)}${q.snapshots ? ` · archive captures used: ${q.snapshots.used}, pending: ${q.snapshots.pending}` : ""}</li>`).join("")}</ul>
+      ${(s.segments || []).length ? `<h3>Where each period's prices come from</h3><ul class="small">${s.segments.map((g) => `<li><b>${fmtDay(g.from)} → ${fmtDay(g.to)}</b>: ${esc(g.source)} (${g.days} days)</li>`).join("")}</ul>` : ""}
+      <h3>Sources</h3><ul class="small">${(s.sources || []).map((q) => `<li><a href="${esc(q.url)}" rel="noopener" target="_blank">${esc(q.label)}</a> — ${esc(q.role)}${q.valid_days != null ? ` · ${q.valid_days} valid days` : ""}${q.snapshots ? ` · archive captures read: ${q.snapshots.used}, pending: ${q.snapshots.pending}` : ""}</li>`).join("")}</ul>
       <p class="small">${esc(s.price_basis || "")}</p>
       ${gst ? `<h3>GST & charges — as stated by the source</h3><ul class="small">${gst}</ul>` : x.id !== "goldbees" ? `<p class="small note">No GST statement found on the source page; treat the rate as excluding GST and making charges unless stated.</p>` : ""}
       ${s.cross_check ? `<h3>Cross-check vs second source</h3><p class="small">${s.cross_check.common_days} common days · median difference ${s.cross_check.median_abs_diff_pct ?? "—"}% · ${s.cross_check.days_over_tolerance} days differ by more than 1%.</p>` : ""}
@@ -451,6 +453,7 @@ function renderData(host) {
       <li><b>Weeks:</b> ISO-8601 (Monday–Sunday), Asia/Kolkata dates. A week belongs to the ISO year containing its Thursday, so the first days of January can fall in the previous year’s last week. 2022–2025 have 52 ISO weeks; 2026 has a week 53, which has no history to compare with.</li>
       <li><b>Weekly return:</b> last valid price of the week ÷ last valid price of the previous week − 1. Holidays simply mean fewer prices in a week; a week with at least one price counts.</li>
       <li><b>Missing data:</b> a week with no price is left blank. The next week’s change spans more than one week, so it is shown but excluded from rankings and averages. Nothing is interpolated.</li>
+      <li><b>Change of source:</b> where a city’s earlier history comes from a different published source, the week in which the source changes is excluded, because its change would compare two different price lists.</li>
       <li><b>Incomplete week:</b> the current week is labelled “in progress” and excluded until it ends.</li>
       <li><b>Seasonality:</b> ranked on average % return across the four complete years; median, best, worst, count and up/down years shown. “Driven by YYYY” means removing that single year flips or erases the average.</li>
       <li><b>Forward returns:</b> buy at a week’s last price, sell at the last price ${HORIZONS.join("/")} weeks later; windows not yet complete are excluded. Drawdown uses weekly closes.</li>

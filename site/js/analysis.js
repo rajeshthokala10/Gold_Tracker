@@ -42,6 +42,9 @@ export function weeksInIsoYear(y) {
  * Collapse daily points into a contiguous run of ISO weeks.
  * points: [[date, price], ...] sorted or not; non-finite / <=0 prices ignored.
  * asOf: "YYYY-MM-DD" (IST) — weeks whose Sunday is after asOf are "partial".
+ * breaks: dates where the data source changes; the first priced week on or
+ *         after such a date gets status "splice" (its change spans two
+ *         sources, so it is shown but never ranked).
  *
  * Each week: { key, y, w, monday, sunday, date, price, obs, prevKey,
  *              prevPrice, chg, ret, status }
@@ -52,8 +55,9 @@ export function weeksInIsoYear(y) {
  *   "gap"     price present, but the previous week had none; the change is
  *             measured from an older week and is excluded from weekly stats
  *   "partial" week has not finished yet (as of asOf); shown, never ranked
+ *   "splice"  change measured across a change of data source; never ranked
  */
-export function toWeekly(points, asOf) {
+export function toWeekly(points, asOf, breaks = []) {
   const clean = points
     .filter((p) => p && typeof p[0] === "string" && Number.isFinite(p[1]) && p[1] > 0)
     .slice()
@@ -94,6 +98,7 @@ export function toWeekly(points, asOf) {
         wk.ret = rec.price / lastValid.price - 1;
         const prevWeekMonday = fmtDate(m - 7 * DAY);
         wk.status = lastValid.monday === prevWeekMonday ? "ok" : "gap";
+        if (breaks.some((b) => b > lastValid.date && b <= rec.date)) wk.status = "splice";
       } else {
         wk.status = "first";
       }

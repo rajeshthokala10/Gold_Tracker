@@ -111,15 +111,40 @@ def main() -> int:
         log.append(f"Gold BeES refresh failed ({type(e).__name__}: {e}); kept last valid data")
 
     # ---- Cities
+    etf_days = sorted(etf_map)
+
+    def ref_per_gram(d: dt.date):
+        """Expected 22K ₹/g on day d from the nearest earlier Gold BeES close."""
+        key = d.isoformat()
+        for e in reversed(etf_days):
+            if e <= key:
+                return etf_map[e] * 100 * 1.12
+        return None
+
     for cid, c in city.CITIES.items():
         say(f"{c['name']}: collecting")
         try:
-            per_source = {s: city.collect_source(cid, s, start, today, log, args.max_snapshots) for s in city.SOURCES}
-            ranked = sorted(per_source, key=lambda s: len(per_source[s]["obs"]), reverse=True)
+            per_source = {s: city.collect_source(cid, s, start, today, log, args.max_snapshots, ref_per_gram) for s in city.SOURCES}
+            valid = {s: validate_city(per_source[s]["obs"], etf_map) for s in per_source}
+            ranked = sorted(per_source, key=lambda s: len(valid[s][0]), reverse=True)
             primary, secondary = ranked[0], ranked[1]
-            obs, vnotes = validate_city(per_source[primary]["obs"], etf_map)
+            obs, vnotes = valid[primary]
             if len(obs) < 30:
                 raise RuntimeError(f"only {len(obs)} valid observations from {primary}")
+            # Backfill: another source may fill dates strictly BEFORE the
+            # primary's first observation (never interleaved), so each date
+            # has one source and there is a single, documented splice point.
+            primary_first = min(obs)
+            segments = [{"source": per_source[primary]["label"], "from": primary_first, "to": max(obs), "days": len(obs)}]
+            splices = []
+            for s2 in ranked[1:]:
+                earlier = {d: o for d, o in valid[s2][0].items() if d < primary_first}
+                if len(earlier) >= 20:
+                    obs = {**earlier, **obs}
+                    segments.insert(0, {"source": per_source[s2]["label"], "from": min(earlier), "to": max(earlier), "days": len(earlier)})
+                    splices.append(primary_first)
+                    vnotes.append(f"Dates before {primary_first} come from {per_source[s2]['label']} ({len(earlier)} days); the week containing the change of source is excluded from weekly statistics")
+                    break
             pts = sorted((d, o["price"]) for d, o in obs.items())
             old_n = len(series.get(cid, {}).get("points", []))
             if old_n and len(pts) < 0.9 * old_n:
@@ -129,12 +154,13 @@ def main() -> int:
                 "points": pts, "updated_at": now.isoformat(timespec="seconds"),
                 "last_capture": max(o["captured"] for o in obs.values()),
                 "sources": [
-                    {"label": per_source[primary]["label"], "url": per_source[primary]["url"], "role": "primary (all returns use this source only)",
-                     "snapshots": per_source[primary]["snapshots"], "live_ok": per_source[primary]["live_ok"]},
-                    {"label": per_source[secondary]["label"], "url": per_source[secondary]["url"], "role": "cross-check only (never mixed in)",
-                     "snapshots": per_source[secondary]["snapshots"], "live_ok": per_source[secondary]["live_ok"]},
+                    {"label": per_source[s2]["label"], "url": per_source[s2]["url"],
+                     "role": ("primary" if s2 == primary else "earlier-dates backfill" if any(seg["source"] == per_source[s2]["label"] for seg in segments) else "cross-check only (not mixed in)"),
+                     "valid_days": len(valid[s2][0]), "snapshots": per_source[s2]["snapshots"], "live_ok": per_source[s2]["live_ok"]}
+                    for s2 in ranked
                 ],
-                "cross_check": city.cross_validate(per_source[primary]["obs"], per_source[secondary]["obs"]),
+                "segments": segments, "splices": splices,
+                "cross_check": city.cross_validate(valid[primary][0], valid[secondary][0]),
                 "gst_snippets": {s: per_source[s]["gst_snippets"] for s in per_source},
                 "validation_notes": vnotes,
                 "price_basis": "Indicative 22K rate published by the source for the city. See the GST/charges statements quoted from the source page.",

@@ -23,10 +23,13 @@ import re
 from common import CACHE_DIR, first_rupee_number, http_get, say, parse_any_date, parse_html, read_json, write_json
 
 CITIES = {
-    "blr": {"name": "Bangalore", "slug": {"goodreturns": "bangalore", "bankbazaar": "bangalore"}},
-    "tpt": {"name": "Tirupati", "slug": {"goodreturns": "tirupati", "bankbazaar": "tirupati"}},
+    "blr": {"name": "Bangalore", "slug": {"livemint": "bangalore", "goodreturns": "bangalore", "bankbazaar": "bangalore"}},
+    "tpt": {"name": "Tirupati", "slug": {"livemint": "tirupati", "goodreturns": "tirupati", "bankbazaar": "tirupati"}},
 }
+# Livemint's city pages carry a 15-day per-gram table and are archived far
+# more often (hundreds of captures from 2024) than the other two (a few dozen).
 SOURCES = {
+    "livemint": {"label": "Mint (livemint.com) city gold prices", "url": "https://www.livemint.com/gold-prices/{slug}"},
     "goodreturns": {"label": "Goodreturns (Oneindia)", "url": "https://www.goodreturns.in/gold-rates/{slug}.html"},
     "bankbazaar": {"label": "BankBazaar", "url": "https://www.bankbazaar.com/gold-rate-{slug}.html"},
 }
@@ -34,7 +37,7 @@ CDX = "https://web.archive.org/cdx/search/cdx?url={url}&from={start}&filter=stat
 WAYBACK = "https://web.archive.org/web/{ts}id_/{url}"  # id_ = original bytes, no toolbar
 # Bump when extract_22k changes: cached observations from an older parser are
 # discarded and every capture is read again.
-PARSER_VERSION = 2
+PARSER_VERSION = 3
 
 GST_PATTERNS = [
     r"[^.]{0,160}indicative[^.]{0,160}\.",  # the source's own disclaimer, e.g. "indicative and do not include GST"
@@ -44,7 +47,7 @@ GST_PATTERNS = [
 ]
 
 
-def extract_22k(html: str, captured: dt.date) -> tuple[list[tuple[str, float, str]], list[str]]:
+def extract_22k(html: str, captured: dt.date, ref_per_gram: float | None = None) -> tuple[list[tuple[str, float, str]], list[str]]:
     """Return ([(date, price_per_gram, unit_note)], gst_snippets) from one page.
 
     Looks for tables that have a date-like first column and a column whose
@@ -53,7 +56,11 @@ def extract_22k(html: str, captured: dt.date) -> tuple[list[tuple[str, float, st
     weight (Goodreturns' date table is per gram today but was per 10 g in
     2021), the weight is inferred from the page's own "Gram" table (the row
     for 1 gram, 22K) by comparing the most recent date-table value with it;
-    if no such table exists the rows are skipped rather than guessed.
+    Failing that, `ref_per_gram` (the expected per-gram level for that day,
+    derived from the Gold BeES close) decides between 1 g, 8 g and 10 g: the
+    three candidates differ by 8-10×, so the band is unambiguous. It only ever
+    picks the unit; prices themselves are never adjusted or invented. With
+    neither hint the rows are skipped.
     """
     p = parse_html(html)
     per_gram_today = _per_gram_from_gram_table(p.tables)
@@ -79,6 +86,7 @@ def extract_22k(html: str, captured: dt.date) -> tuple[list[tuple[str, float, st
             rows.append((d, v, _grams(row[0])))
         if not rows:
             continue
+        unit_note = f"{grams:g} g column" if grams else None
         if grams is None and per_gram_today:
             newest = max(rows)[1]
             ratio = newest / per_gram_today
@@ -87,8 +95,13 @@ def extract_22k(html: str, captured: dt.date) -> tuple[list[tuple[str, float, st
                     grams = float(g)
                     break
             unit_note = f"inferred {grams:g} g from the page's per-gram table" if grams else None
-        else:
-            unit_note = f"{grams:g} g column" if grams else None
+        if grams is None and ref_per_gram:
+            newest = max(rows)[1]
+            for g in (1, 8, 10):
+                if 0.8 <= newest / g / ref_per_gram <= 1.25:
+                    grams = float(g)
+                    break
+            unit_note = f"inferred {grams:g} g from the price level" if grams else None
         for d, v, row_g in rows:
             g = grams or row_g
             if not g:
@@ -134,8 +147,12 @@ def _cache_path(city: str, source: str) -> str:
     return os.path.join(CACHE_DIR, f"{city}_{source}.json")
 
 
-def collect_source(city: str, source: str, start: dt.date, today: dt.date, log: list[str], max_new_snapshots: int = 400) -> dict:
-    """Incremental: snapshots already parsed are kept in the cache file."""
+def collect_source(city: str, source: str, start: dt.date, today: dt.date, log: list[str], max_new_snapshots: int = 400, ref_per_gram=None) -> dict:
+    """Incremental: snapshots already parsed are kept in the cache file.
+
+    ref_per_gram(date) -> expected 22K ₹/g level (from Gold BeES) or None;
+    used only to tell 1 g / 8 g / 10 g tables apart when the page says nothing.
+    """
     url = SOURCES[source]["url"].format(slug=CITIES[city]["slug"][source])
     cache = read_json(_cache_path(city, source), None)
     if not cache or cache.get("parser") != PARSER_VERSION:
@@ -158,7 +175,7 @@ def collect_source(city: str, source: str, start: dt.date, today: dt.date, log: 
     say(f"{CITIES[city]['name']} / {source}: live page")
     try:
         html = http_get(url, pause=1.0).decode("utf-8", "replace")
-        rows, gst = extract_22k(html, today)
+        rows, gst = extract_22k(html, today, ref_per_gram(today) if ref_per_gram else None)
         say(f"  live page: {len(rows)} row(s) parsed")
         if rows:
             add(rows, url, dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
@@ -174,7 +191,7 @@ def collect_source(city: str, source: str, start: dt.date, today: dt.date, log: 
     # 2. Wayback captures (new ones only); pick roughly one per 7 days since
     #    each capture lists ~10 days.
     try:
-        listing = json.loads(http_get(CDX.format(url=url, start=start.strftime("%Y%m%d")), pause=1.0) or b"[]")
+        listing = json.loads(http_get(CDX.format(url=url, start=start.strftime("%Y%m%d")), retries=3, timeout=75, pause=2.0) or b"[]")
         tss = [r[0] for r in listing[1:]]
     except Exception as e:  # noqa: BLE001
         tss = []
@@ -194,7 +211,7 @@ def collect_source(city: str, source: str, start: dt.date, today: dt.date, log: 
         try:
             html = http_get(wb, retries=2, timeout=45, pause=1.5).decode("utf-8", "replace")
             cap = dt.date(int(ts[:4]), int(ts[4:6]), int(ts[6:8]))
-            rows, gst = extract_22k(html, cap)
+            rows, gst = extract_22k(html, cap, ref_per_gram(cap) if ref_per_gram else None)
             captured = f"{ts[:4]}-{ts[4:6]}-{ts[6:8]}T{ts[8:10]}:{ts[10:12]}:{ts[12:14]}Z"
             add(rows, f"https://web.archive.org/web/{ts}/{url}", captured)
             snaps[ts] = "ok" if rows else "no-rows"
