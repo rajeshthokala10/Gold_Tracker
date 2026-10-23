@@ -44,7 +44,7 @@ CDX = "https://web.archive.org/cdx/search/cdx?url={url}&from={start}&to={end}&fi
 WAYBACK = "https://web.archive.org/web/{ts}id_/{url}"  # id_ = original bytes, no toolbar
 # Bump when extract_22k changes: cached observations from an older parser are
 # discarded and every capture is read again.
-PARSER_VERSION = 4
+PARSER_VERSION = 5
 
 GST_PATTERNS = [
     r"[^.]{0,160}indicative[^.]{0,160}\.",  # the source's own disclaimer, e.g. "indicative and do not include GST"
@@ -132,21 +132,42 @@ def _col22(header: list[str]) -> int | None:
     return None
 
 
-def _date_from_day_and_year(cell: str, captured: dt.date) -> dt.date | None:
-    """Resolve a date whose month name is not in English ('ಅಕ್ಟೋಬರ್ 23, 2026').
+# Month names used by Goodreturns' language editions (Hindi, Tamil, Kannada,
+# Telugu, Malayalam), with common spelling variants. Unknown spellings are
+# simply not resolved, so no row is ever assigned a guessed month.
+LOCAL_MONTHS = {
+    1: ["जनवरी", "ஜனவரி", "ಜನವರಿ", "జనవరి", "ജനുവരി"],
+    2: ["फरवरी", "फ़रवरी", "பிப்ரவரி", "ಫೆಬ್ರವರಿ", "ఫిబ్రవరి", "ഫെബ്രുവരി"],
+    3: ["मार्च", "மார்ச்", "ಮಾರ್ಚ್", "మార్చి", "മാർച്ച്"],
+    4: ["अप्रैल", "ஏப்ரல்", "ಏಪ್ರಿಲ್", "ఏప్రిల్", "ഏപ്രിൽ"],
+    5: ["मई", "மே", "ಮೇ", "మే", "മേയ്", "മെയ്"],
+    6: ["जून", "ஜூன்", "ಜೂನ್", "జూన్", "ജൂൺ"],
+    7: ["जुलाई", "ஜூலை", "ಜುಲೈ", "జులై", "జూలై", "ജൂലൈ"],
+    8: ["अगस्त", "ஆகஸ்ட்", "ಆಗಸ್ಟ್", "ఆగస్టు", "ఆగష్టు", "ഓഗസ്റ്റ്", "ആഗസ്റ്റ്"],
+    9: ["सितंबर", "सितम्बर", "செப்டம்பர்", "ಸೆಪ್ಟೆಂಬರ್", "సెప్టెంబర్", "സെപ്റ്റംബർ"],
+    10: ["अक्टूबर", "अक्तूबर", "அக்டோபர்", "ಅಕ್ಟೋಬರ್", "అక్టోబర్", "ഒക്ടോബർ"],
+    11: ["नवंबर", "नवम्बर", "நவம்பர்", "ನವೆಂಬರ್", "నవంబర్", "നവംബർ"],
+    12: ["दिसंबर", "दिसम्बर", "டிசம்பர்", "ಡಿಸೆಂಬರ್", "డిసెంబర్", "ഡിസംബർ"],
+}
 
-    The day and the year are ASCII digits. A rate table only lists the ~20
-    days before the capture, so exactly one date in that window carries that
-    day-of-month and year; the month follows from it with no guessing.
+
+def _date_from_day_and_year(cell: str, captured: dt.date) -> dt.date | None:
+    """Resolve a local-language date such as 'ಅಕ್ಟೋಬರ್ 23, 2026'.
+
+    The month must match a known local-language name; the day and the year
+    are ASCII digits. As a second check the date must fall within the 20
+    days before the capture, which is all a rate table ever lists.
     """
+    month = next((m for m, names in LOCAL_MONTHS.items() if any(n in cell for n in names)), None)
     m = re.search(r"(?<!\d)(\d{1,2})(?!\d)", cell)
     y = re.search(r"(?<!\d)(20\d{2})(?!\d)", cell)
-    if not m or not y:
+    if month is None or not m or not y:
         return None
-    day, year = int(m[1]), int(y[1])
-    hits = [captured - dt.timedelta(days=k) for k in range(0, 21)]
-    hits = [d for d in hits if d.day == day and d.year == year]
-    return hits[0] if len(hits) == 1 else None
+    try:
+        d = dt.date(int(y[1]), month, int(m[1]))
+    except ValueError:
+        return None
+    return d if 0 <= (captured - d).days <= 20 else None
 
 
 def _per_gram_from_gram_table(tables) -> float | None:

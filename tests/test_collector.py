@@ -66,10 +66,11 @@ class Parsers(unittest.TestCase):
         <tr><td>ಅಕ್ಟೋಬರ್ 3, 2026</td><td>x</td><td>₹13,590</td></tr></table>"""
         rows, _ = extract_22k(html, dt.date(2026, 10, 23))
         self.assertEqual([r[:2] for r in rows], [("2026-10-23", 13060.0), ("2026-10-22", 13235.0), ("2026-10-03", 13590.0)])
-        # Captured on 5 Nov, '3' can only be 3 Nov and '23' only 23 Oct; '28' is more than 20 days back.
-        self.assertEqual(_date_from_day_and_year("ಅಕ್ಟೋಬರ್ 3, 2026", dt.date(2026, 11, 5)), dt.date(2026, 11, 3))
+        # The month must be a known name and the date must sit inside the table window.
         self.assertEqual(_date_from_day_and_year("ಅಕ್ಟೋಬರ್ 23, 2026", dt.date(2026, 11, 5)), dt.date(2026, 10, 23))
-        self.assertIsNone(_date_from_day_and_year("ಸೆಪ್ಟೆಂಬರ್ 28, 2026", dt.date(2026, 11, 5)))
+        self.assertEqual(_date_from_day_and_year("अक्तूबर 23, 2026", dt.date(2026, 10, 23)), dt.date(2026, 10, 23))
+        self.assertIsNone(_date_from_day_and_year("ಸೆಪ್ಟೆಂಬರ್ 28, 2026", dt.date(2026, 11, 5)))  # stale row, outside window
+        self.assertIsNone(_date_from_day_and_year("xyz 23, 2026", dt.date(2026, 10, 23)))  # unknown month
 
     def test_cross_validate(self):
         a = {"2026-01-01": {"price": 100}, "2026-01-02": {"price": 103}}
