@@ -10,14 +10,17 @@ on every refresh, so this file is a snapshot.
 | Series | Daily points | Usable weekly returns per year (2022 · 2023 · 2024 · 2025 · 2026 YTD) |
 |---|---|---|
 | Gold BeES (NSE close) | 1,197 (3 Jan 2022 → 23 Oct 2026) | 52 · 52 · 52 · 52 · 42 — complete |
-| Bangalore 22K (₹/g) | 765 (20 Dec 2021 → 23 Oct 2026) | 11 · 6 · 5 · 50 · 36 — complete only from late Nov 2024 |
+| Bangalore 22K (₹/g) | 855 (20 Dec 2021 → 23 Oct 2026) | 15 · 8 · 8 · 52 · 42 — complete only from late Nov 2024 |
 
 Bangalore 22K history before November 2024 comes from Internet Archive
-captures of the Goodreturns city page, which was captured only a few times a
-year; from 18 Nov 2024 it comes from Mint's city page, captured weekly, then
-near-daily. Days without a capture are left blank. As a result, **a four-year
-seasonal ranking is only possible for Gold BeES**; for Bangalore 22K only one
-calendar week has three or more years of data. Bangalore 22K has tracked Gold
+captures of the Goodreturns city page and its five language editions (the
+same table), which together were captured only a few dozen times a year;
+from 18 Nov 2024 it comes from Mint's city page, captured weekly, then
+near-daily. A survey of about thirty other published Bangalore rate pages
+found none with denser archives (`collector/samples/survey_cdx.md`). Days
+without a capture are left blank. As a result, **a four-year seasonal ranking
+is only possible for Gold BeES**; for Bangalore 22K only five calendar weeks
+(W9, W13, W14, W48, W51) have three years of data and none has four. Bangalore 22K has tracked Gold
 BeES closely where both exist (182% vs 178% since early 2022), so Gold BeES is
 the usable benchmark for the city's seasonal behaviour, and it is labelled as
 such on the site.
