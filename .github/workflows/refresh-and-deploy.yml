@@ -45,7 +45,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
           git add site/data collector/cache
-          if ! git diff --cached --quiet; then git commit -m "Refresh gold dashboard data" && git push; fi
+          if ! git diff --cached --quiet; then git commit -m "Refresh gold dashboard data" && git pull --rebase origin main && git push; fi
       - uses: actions/upload-pages-artifact@v3
         with: { path: site }
 
