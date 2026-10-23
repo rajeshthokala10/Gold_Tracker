@@ -22,7 +22,12 @@ def now_ist() -> dt.datetime:
     return dt.datetime.now(IST)
 
 
-def http_get(url: str, *, retries: int = 3, timeout: int = 60, pause: float = 0.0) -> bytes:
+def say(msg: str) -> None:
+    """Progress line, flushed immediately so CI logs show where a run is."""
+    print(f"[{dt.datetime.now(IST).strftime('%H:%M:%S')}] {msg}", flush=True)
+
+
+def http_get(url: str, *, retries: int = 3, timeout: int = 30, pause: float = 0.0) -> bytes:
     """GET with simple exponential backoff. Raises the last error."""
     last: Exception | None = None
     for attempt in range(retries):
@@ -37,9 +42,11 @@ def http_get(url: str, *, retries: int = 3, timeout: int = 60, pause: float = 0.
             return body
         except (urllib.error.URLError, TimeoutError, ConnectionError) as e:  # noqa: PERF203
             last = e
+            log(f"  retry {attempt + 1}/{retries} {type(e).__name__} {url[:90]}")
             if isinstance(e, urllib.error.HTTPError) and e.code in (403, 404, 410):
                 break
-            time.sleep(2 ** (attempt + 1))
+            if attempt + 1 < retries:
+                time.sleep(2 ** (attempt + 1))
     assert last is not None
     raise last
 

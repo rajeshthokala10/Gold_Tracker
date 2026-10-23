@@ -20,7 +20,7 @@ import json
 import os
 import re
 
-from common import CACHE_DIR, first_rupee_number, http_get, parse_any_date, parse_html, read_json, write_json
+from common import CACHE_DIR, first_rupee_number, http_get, say, parse_any_date, parse_html, read_json, write_json
 
 CITIES = {
     "blr": {"name": "Bangalore", "slug": {"goodreturns": "bangalore", "bankbazaar": "bangalore"}},
@@ -114,9 +114,11 @@ def collect_source(city: str, source: str, start: dt.date, today: dt.date, log: 
 
     # 1. Live page
     live_ok, live_err = False, None
+    say(f"{CITIES[city]['name']} / {source}: live page")
     try:
         html = http_get(url, pause=1.0).decode("utf-8", "replace")
         rows, gst = extract_22k(html, today)
+        say(f"  live page: {len(rows)} row(s) parsed")
         if rows:
             add(rows, url, dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
             live_ok = True
@@ -143,10 +145,13 @@ def collect_source(city: str, source: str, start: dt.date, today: dt.date, log: 
             chosen.append(ts)
             last_day = day
     todo = [ts for ts in chosen if snaps.get(ts) not in ("ok", "no-rows")][:max_new_snapshots]
-    for ts in todo:
+    say(f"  archive: {len(tss)} captures listed, {len(chosen)} chosen (~weekly), {len(todo)} to read now")
+    for n, ts in enumerate(todo, 1):
         wb = WAYBACK.format(ts=ts, url=url)
+        if n % 10 == 0 or n == len(todo):
+            say(f"  archive: {n}/{len(todo)} ({ts[:8]})")
         try:
-            html = http_get(wb, retries=2, pause=1.5).decode("utf-8", "replace")
+            html = http_get(wb, retries=2, timeout=45, pause=1.5).decode("utf-8", "replace")
             cap = dt.date(int(ts[:4]), int(ts[4:6]), int(ts[6:8]))
             rows, gst = extract_22k(html, cap)
             captured = f"{ts[:4]}-{ts[4:6]}-{ts[6:8]}T{ts[8:10]}:{ts[10:12]}:{ts[12:14]}Z"

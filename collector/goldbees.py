@@ -21,7 +21,7 @@ import datetime as dt
 import io
 import json
 
-from common import IST, http_get
+from common import IST, http_get, say
 
 YAHOO = "https://query1.finance.yahoo.com/v8/finance/chart/GOLDBEES.NS?period1={p1}&period2={p2}&interval=1d&events=div%2Csplit&includeAdjustedClose=true"
 NSE_BHAV = "https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_{ddmmyyyy}.csv"
@@ -83,14 +83,14 @@ def adjust_for_splits(rows: dict[str, float], splits: list[dict]) -> tuple[dict[
     return {d: round(v, 4) for d, v in out.items()}, notes
 
 
-def cross_check_nse(rows: dict[str, float], n_days: int = 8) -> dict:
+def cross_check_nse(rows: dict[str, float], n_days: int = 5) -> dict:
     """Compare the latest n trading days with the official NSE bhavcopy."""
     checked, issues, isin_ok = [], [], None
     for d in sorted(rows)[-n_days:]:
         day = dt.date.fromisoformat(d)
         url = NSE_BHAV.format(ddmmyyyy=day.strftime("%d%m%Y"))
         try:
-            text = http_get(url, retries=2, pause=1.0).decode("utf-8", "replace")
+            text = http_get(url, retries=1, timeout=20, pause=1.0).decode("utf-8", "replace")
         except Exception as e:  # noqa: BLE001 - recorded, not fatal
             issues.append(f"{d}: NSE bhavcopy unavailable ({type(e).__name__})")
             continue
@@ -108,7 +108,7 @@ def cross_check_nse(rows: dict[str, float], n_days: int = 8) -> dict:
     # The full bhavcopy has no ISIN column; ISIN is verified from the
     # security-wise list below when reachable.
     try:
-        eq = http_get("https://nsearchives.nseindia.com/content/equities/eq_etfseclist.csv", retries=2).decode("utf-8", "replace")
+        eq = http_get("https://nsearchives.nseindia.com/content/equities/eq_etfseclist.csv", retries=1, timeout=20).decode("utf-8", "replace")
         for row in csv.reader(io.StringIO(eq)):
             if row and row[0].strip() == "GOLDBEES":
                 isin_ok = EXPECTED_ISIN in [c.strip() for c in row]
@@ -123,11 +123,15 @@ def cross_check_nse(rows: dict[str, float], n_days: int = 8) -> dict:
 
 
 def collect(start: dt.date) -> dict:
+    say("Gold BeES: fetching Yahoo chart")
     y = fetch_yahoo(start)
+    say(f"Gold BeES: {len(y['rows'])} daily rows, {len(y['splits'])} split event(s)")
     adj, notes = adjust_for_splits(y["rows"], y["splits"])
     if y["dividends"]:
         notes.append(f"Yahoo reported {len(y['dividends'])} dividend event(s); prices are not dividend-adjusted")
+    say("Gold BeES: cross-checking against NSE bhavcopy")
     xc = cross_check_nse(adj)
+    say(f"Gold BeES: NSE check done, {len(xc['checked'])} days compared, {len(xc['issues'])} issue(s)")
     return {
         "points": sorted(adj.items()),
         "source_url": y["url"],

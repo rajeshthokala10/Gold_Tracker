@@ -21,7 +21,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import city  # noqa: E402
 import goldbees  # noqa: E402
-from common import DATA_DIR, now_ist, read_json, write_json  # noqa: E402
+from common import DATA_DIR, say, now_ist, read_json, write_json  # noqa: E402
 
 OUT = os.path.join(DATA_DIR, "data.json")
 
@@ -106,10 +106,12 @@ def main() -> int:
         }
         log += [f"Gold BeES: {m}" for m in g["nse_cross_check"]["issues"]]
     except Exception as e:  # noqa: BLE001
+        say(f"Gold BeES FAILED: {type(e).__name__}: {e}")
         log.append(f"Gold BeES refresh failed ({type(e).__name__}: {e}); kept last valid data")
 
     # ---- Cities
     for cid, c in city.CITIES.items():
+        say(f"{c['name']}: collecting")
         try:
             per_source = {s: city.collect_source(cid, s, start, today, log, args.max_snapshots) for s in city.SOURCES}
             ranked = sorted(per_source, key=lambda s: len(per_source[s]["obs"]), reverse=True)
@@ -139,6 +141,7 @@ def main() -> int:
             write_csv(os.path.join(DATA_DIR, f"{cid}_22k_provenance.csv"), ["date_ist", "price_inr_per_g", "price_inr_per_10g", "source_url", "captured_utc", "unit_note"],
                       [[d, o["price"], round(o["price"] * 10, 2), o["src"], o["captured"], o["unit"]] for d, o in sorted(obs.items())])
         except Exception as e:  # noqa: BLE001
+            say(f"{c['name']} FAILED: {type(e).__name__}: {e}")
             log.append(f"{c['name']} refresh failed ({type(e).__name__}: {e}); kept last valid data")
 
     if not series:
