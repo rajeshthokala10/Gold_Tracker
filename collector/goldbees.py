@@ -40,10 +40,18 @@ def fetch_yahoo(start: dt.date) -> dict:
     ts = res.get("timestamp") or []
     closes = res["indicators"]["quote"][0]["close"]
     rows = {}
+    now = dt.datetime.now(IST)
+    dropped = None
     for t, c in zip(ts, closes):
         if c is None:
             continue  # Yahoo emits nulls for some sessions; never filled
-        d = dt.datetime.fromtimestamp(t, IST).date().isoformat()
+        when = dt.datetime.fromtimestamp(t, IST)
+        d = when.date().isoformat()
+        # While the market is open Yahoo's last bar is a running intraday
+        # price, not a close. Keep only closes: drop today's bar before 15:40 IST.
+        if when.date() == now.date() and now.hour * 60 + now.minute < 15 * 60 + 40:
+            dropped = d
+            continue
         rows[d] = round(float(c), 4)
     splits = []
     for ev in (res.get("events") or {}).get("splits", {}).values():
@@ -60,6 +68,7 @@ def fetch_yahoo(start: dt.date) -> dict:
         "dividends": divs,
         "exchange": meta.get("exchangeName"),
         "regularMarketTime": dt.datetime.fromtimestamp(meta["regularMarketTime"], IST).isoformat() if meta.get("regularMarketTime") else None,
+        "dropped_intraday": dropped,
     }
 
 
@@ -90,7 +99,7 @@ def cross_check_nse(rows: dict[str, float], n_days: int = 5) -> dict:
         day = dt.date.fromisoformat(d)
         url = NSE_BHAV.format(ddmmyyyy=day.strftime("%d%m%Y"))
         try:
-            text = http_get(url, retries=1, timeout=20, pause=1.0).decode("utf-8", "replace")
+            text = http_get(url, retries=1, timeout=15, pause=1.0, browser=True).decode("utf-8", "replace")
         except Exception as e:  # noqa: BLE001 - recorded, not fatal
             issues.append(f"{d}: NSE bhavcopy unavailable ({type(e).__name__})")
             continue
@@ -108,7 +117,7 @@ def cross_check_nse(rows: dict[str, float], n_days: int = 5) -> dict:
     # The full bhavcopy has no ISIN column; ISIN is verified from the
     # security-wise list below when reachable.
     try:
-        eq = http_get("https://nsearchives.nseindia.com/content/equities/eq_etfseclist.csv", retries=1, timeout=20).decode("utf-8", "replace")
+        eq = http_get("https://nsearchives.nseindia.com/content/equities/eq_etfseclist.csv", retries=1, timeout=15, browser=True).decode("utf-8", "replace")
         for row in csv.reader(io.StringIO(eq)):
             if row and row[0].strip() == "GOLDBEES":
                 isin_ok = EXPECTED_ISIN in [c.strip() for c in row]
@@ -127,6 +136,8 @@ def collect(start: dt.date) -> dict:
     y = fetch_yahoo(start)
     say(f"Gold BeES: {len(y['rows'])} daily rows, {len(y['splits'])} split event(s)")
     adj, notes = adjust_for_splits(y["rows"], y["splits"])
+    if y["dropped_intraday"]:
+        notes.append(f"Intraday bar for {y['dropped_intraday']} not used (market still open at collection time); only closes are stored")
     if y["dividends"]:
         notes.append(f"Yahoo reported {len(y['dividends'])} dividend event(s); prices are not dividend-adjusted")
     say("Gold BeES: cross-checking against NSE bhavcopy")

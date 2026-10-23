@@ -27,16 +27,27 @@ def say(msg: str) -> None:
     print(f"[{dt.datetime.now(IST).strftime('%H:%M:%S')}] {msg}", flush=True)
 
 
-def http_get(url: str, *, retries: int = 3, timeout: int = 30, pause: float = 0.0) -> bytes:
+BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+
+
+def http_get(url: str, *, retries: int = 3, timeout: int = 30, pause: float = 0.0, browser: bool = False) -> bytes:
     """GET with simple exponential backoff. Raises the last error."""
     last: Exception | None = None
     for attempt in range(retries):
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept-Encoding": "gzip", "Accept": "*/*"})
+            headers = {"User-Agent": BROWSER_UA if browser else UA, "Accept-Encoding": "gzip", "Accept": "*/*"}
+            if browser:
+                headers.update({"Accept": "text/html,application/xhtml+xml,*/*;q=0.8", "Accept-Language": "en-IN,en;q=0.9", "Referer": "https://www.nseindia.com/"})
+            req = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 body = r.read()
-                if r.headers.get("Content-Encoding") == "gzip":
-                    body = gzip.decompress(body)
+                # Archived pages are sometimes served as raw gzip bytes with no
+                # Content-Encoding header, so sniff the magic number as well.
+                if r.headers.get("Content-Encoding") == "gzip" or body[:2] == b"\x1f\x8b":
+                    try:
+                        body = gzip.decompress(body)
+                    except OSError:
+                        pass
             if pause:
                 time.sleep(pause)
             return body

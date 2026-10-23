@@ -34,9 +34,10 @@ CDX = "https://web.archive.org/cdx/search/cdx?url={url}&from={start}&filter=stat
 WAYBACK = "https://web.archive.org/web/{ts}id_/{url}"  # id_ = original bytes, no toolbar
 # Bump when extract_22k changes: cached observations from an older parser are
 # discarded and every capture is read again.
-PARSER_VERSION = 1
+PARSER_VERSION = 2
 
 GST_PATTERNS = [
+    r"[^.]{0,160}indicative[^.]{0,160}\.",  # the source's own disclaimer, e.g. "indicative and do not include GST"
     r"[^.]{0,160}\bGST\b[^.]{0,160}\.",
     r"[^.]{0,160}making charges?[^.]{0,160}\.",
     r"[^.]{0,160}(?:TCS|excise|levies|duties)[^.]{0,160}\.",
@@ -48,10 +49,14 @@ def extract_22k(html: str, captured: dt.date) -> tuple[list[tuple[str, float, st
 
     Looks for tables that have a date-like first column and a column whose
     header mentions 22 (carat/K). The per-gram figure is derived from the
-    header's stated weight (1 g, 8 g, 10 g); tables without a stated weight
-    are skipped rather than guessed.
+    weight stated in the header (1 g, 8 g, 10 g). When the header states no
+    weight (Goodreturns' date table is per gram today but was per 10 g in
+    2021), the weight is inferred from the page's own "Gram" table (the row
+    for 1 gram, 22K) by comparing the most recent date-table value with it;
+    if no such table exists the rows are skipped rather than guessed.
     """
     p = parse_html(html)
+    per_gram_today = _per_gram_from_gram_table(p.tables)
     out: list[tuple[str, float, str]] = []
     for t in p.tables:
         if len(t) < 3:
@@ -60,8 +65,8 @@ def extract_22k(html: str, captured: dt.date) -> tuple[list[tuple[str, float, st
         col22 = next((i for i, h in enumerate(header) if re.search(r"\b22\s*(?:k|kt|carat|ct)\b", h)), None)
         if col22 is None or col22 == 0:
             continue
-        caption = " ".join(header)
-        grams = _grams(header[col22]) or _grams(caption)
+        grams = _grams(header[col22]) or _grams(" ".join(header))
+        rows = []
         for row in t[1:]:
             if len(row) <= col22:
                 continue
@@ -71,10 +76,24 @@ def extract_22k(html: str, captured: dt.date) -> tuple[list[tuple[str, float, st
                 continue
             if d > captured or (captured - d).days > 20:
                 continue  # a table row cannot be from the future or far past
-            g = grams or _grams(row[0])
+            rows.append((d, v, _grams(row[0])))
+        if not rows:
+            continue
+        if grams is None and per_gram_today:
+            newest = max(rows)[1]
+            ratio = newest / per_gram_today
+            for g in (1, 8, 10, 100):
+                if abs(ratio / g - 1) < 0.03:
+                    grams = float(g)
+                    break
+            unit_note = f"inferred {grams:g} g from the page's per-gram table" if grams else None
+        else:
+            unit_note = f"{grams:g} g column" if grams else None
+        for d, v, row_g in rows:
+            g = grams or row_g
             if not g:
                 continue
-            out.append((d.isoformat(), round(v / g, 2), f"{g:g} g column"))
+            out.append((d.isoformat(), round(v / g, 2), unit_note or f"{g:g} g row"))
     snippets = []
     for pat in GST_PATTERNS:
         for m in re.finditer(pat, p.text, flags=re.I):
@@ -82,6 +101,28 @@ def extract_22k(html: str, captured: dt.date) -> tuple[list[tuple[str, float, st
             if len(s) > 30 and s not in snippets:
                 snippets.append(s)
     return out, snippets[:6]
+
+
+def _per_gram_from_gram_table(tables) -> float | None:
+    """Today's 22K price for 1 gram from a 'Gram | ... 22K ...' table."""
+    for t in tables:
+        if len(t) < 2:
+            continue
+        header = [c.lower() for c in t[0]]
+        if not header or "gram" not in header[0]:
+            continue
+        col = next((i for i, h in enumerate(header) if re.search(r"\b22\s*(?:k|kt|carat|ct)\b", h)), None)
+        if col is None:
+            # BankBazaar's per-carat tables have no carat in the header; the
+            # 22K one is the first 'Gram | Today | Yesterday' table on the page
+            # but that is too fragile to rely on, so only explicit headers count.
+            continue
+        for row in t[1:]:
+            if row and re.match(r"^\s*1(\s*(?:g|gm|gram|grams))?\s*$", row[0].lower()) and len(row) > col:
+                v = first_rupee_number(row[col])
+                if v:
+                    return v
+    return None
 
 
 def _grams(s: str) -> float | None:

@@ -36,6 +36,9 @@ jobs:
           [ -n "$ts" ] && g wb_bb_blr_$ts.html "https://web.archive.org/web/${ts}id_/https://www.bankbazaar.com/gold-rate-bangalore.html"
           ls -la
           gzip -9f *.html
+      - name: Survey alternative sources
+        run: python collector/explore.py > /dev/null 2>&1 || echo "explore failed"
+        continue-on-error: true
       - name: Collect
         run: python collector/build.py --max-snapshots "$(cat collector/max_snapshots.txt 2>/dev/null || echo 4)" 2>&1 | tee collector/samples/build_log.txt
         continue-on-error: true

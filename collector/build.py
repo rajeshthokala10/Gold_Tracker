@@ -26,10 +26,11 @@ from common import DATA_DIR, say, now_ist, read_json, write_json  # noqa: E402
 OUT = os.path.join(DATA_DIR, "data.json")
 
 # Plausibility band for 22K ₹/g divided by (Gold BeES ₹/unit × 100).
-# One Gold BeES unit tracks roughly 0.01 g of 24K gold, so 22K ₹/g is about
-# 0.916 × 100 × unit price before retail differences. Values outside this
-# band almost always mean a parsing/unit error and are rejected.
-RATIO_BAND = (0.80, 1.10)
+# Observed: Oct 2026 Bangalore 22K ₹13,060/g vs Gold BeES ₹115.92 → 1.13;
+# Aug 2021 ₹4,490/g vs ≈₹40 → 1.12. A per-8 g or per-10 g figure mistaken for
+# per-gram lands at 9–11, so this band separates unit errors from real quotes
+# while leaving room for city/retail spreads and tracking differences.
+RATIO_BAND = (0.95, 1.30)
 
 
 def validate_city(points: dict[str, dict], etf: dict[str, float]) -> tuple[dict[str, dict], list[str]]:
