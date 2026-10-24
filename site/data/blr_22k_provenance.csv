@@ -254,12 +254,13 @@ date_ist,price_inr_per_g,price_inr_per_10g,source_url,captured_utc,unit_note
 2025-02-09,7962.3,79623.0,https://web.archive.org/web/20250212012619/https://www.livemint.com/gold-prices/bangalore,2025-02-12T01:26:19Z,inferred 1 g from the price level
 2025-02-10,7961.3,79613.0,https://web.archive.org/web/20250212012619/https://www.livemint.com/gold-prices/bangalore,2025-02-12T01:26:19Z,inferred 1 g from the price level
 2025-02-11,7998.3,79983.0,https://web.archive.org/web/20250212012619/https://www.livemint.com/gold-prices/bangalore,2025-02-12T01:26:19Z,inferred 1 g from the price level
-2025-02-13,7956.3,79563.0,https://web.archive.org/web/20250227034041/https://www.livemint.com/gold-prices/bangalore,2025-02-27T03:40:41Z,inferred 1 g from the price level
-2025-02-14,7998.3,79983.0,https://web.archive.org/web/20250227034041/https://www.livemint.com/gold-prices/bangalore,2025-02-27T03:40:41Z,inferred 1 g from the price level
-2025-02-15,8008.3,80083.0,https://web.archive.org/web/20250227034041/https://www.livemint.com/gold-prices/bangalore,2025-02-27T03:40:41Z,inferred 1 g from the price level
-2025-02-16,7907.3,79073.0,https://web.archive.org/web/20250227034041/https://www.livemint.com/gold-prices/bangalore,2025-02-27T03:40:41Z,inferred 1 g from the price level
-2025-02-17,7906.3,79063.0,https://web.archive.org/web/20250227034041/https://www.livemint.com/gold-prices/bangalore,2025-02-27T03:40:41Z,inferred 1 g from the price level
-2025-02-18,7958.3,79583.0,https://web.archive.org/web/20250227034041/https://www.livemint.com/gold-prices/bangalore,2025-02-27T03:40:41Z,inferred 1 g from the price level
+2025-02-12,8028.3,80283.0,https://web.archive.org/web/20250219112558/https://www.livemint.com/gold-prices/bangalore,2025-02-19T11:25:58Z,inferred 1 g from the price level
+2025-02-13,7956.3,79563.0,https://web.archive.org/web/20250219112558/https://www.livemint.com/gold-prices/bangalore,2025-02-19T11:25:58Z,inferred 1 g from the price level
+2025-02-14,7998.3,79983.0,https://web.archive.org/web/20250219112558/https://www.livemint.com/gold-prices/bangalore,2025-02-19T11:25:58Z,inferred 1 g from the price level
+2025-02-15,8008.3,80083.0,https://web.archive.org/web/20250219112558/https://www.livemint.com/gold-prices/bangalore,2025-02-19T11:25:58Z,inferred 1 g from the price level
+2025-02-16,7907.3,79073.0,https://web.archive.org/web/20250219112558/https://www.livemint.com/gold-prices/bangalore,2025-02-19T11:25:58Z,inferred 1 g from the price level
+2025-02-17,7906.3,79063.0,https://web.archive.org/web/20250219112558/https://www.livemint.com/gold-prices/bangalore,2025-02-19T11:25:58Z,inferred 1 g from the price level
+2025-02-18,7958.3,79583.0,https://web.archive.org/web/20250219112558/https://www.livemint.com/gold-prices/bangalore,2025-02-19T11:25:58Z,inferred 1 g from the price level
 2025-02-19,7988.3,79883.0,https://web.archive.org/web/20250227034041/https://www.livemint.com/gold-prices/bangalore,2025-02-27T03:40:41Z,inferred 1 g from the price level
 2025-02-20,8048.3,80483.0,https://web.archive.org/web/20250227034041/https://www.livemint.com/gold-prices/bangalore,2025-02-27T03:40:41Z,inferred 1 g from the price level
 2025-02-21,8088.3,80883.0,https://web.archive.org/web/20250227034041/https://www.livemint.com/gold-prices/bangalore,2025-02-27T03:40:41Z,inferred 1 g from the price level
@@ -869,3 +870,4 @@ date_ist,price_inr_per_g,price_inr_per_10g,source_url,captured_utc,unit_note
 2026-10-21,13374.42,133744.2,https://www.livemint.com/gold-prices/bangalore,2026-10-23T11:35:34Z,inferred 1 g from the price level
 2026-10-22,13134.8,131348.0,https://www.livemint.com/gold-prices/bangalore,2026-10-23T11:35:34Z,inferred 1 g from the price level
 2026-10-23,13089.18,130891.8,https://www.livemint.com/gold-prices/bangalore,2026-10-23T11:35:34Z,inferred 1 g from the price level
+2026-10-24,13001.7,130017.0,https://www.livemint.com/gold-prices/bangalore,2026-10-24T09:04:25Z,inferred 1 g from the price level
