@@ -81,6 +81,7 @@ date_ist,price_inr_per_g,price_inr_per_10g,source_url,captured_utc,unit_note
 2022-10-04,4740.0,47400.0,https://web.archive.org/web/20221006150717/https://www.goodreturns.in/gold-rates/bangalore.html,2022-10-06T15:07:17Z,inferred 10 g from the page's per-gram table
 2022-10-05,4780.0,47800.0,https://web.archive.org/web/20221006150717/https://www.goodreturns.in/gold-rates/bangalore.html,2022-10-06T15:07:17Z,inferred 10 g from the page's per-gram table
 2022-10-06,4790.0,47900.0,https://web.archive.org/web/20221006150717/https://www.goodreturns.in/gold-rates/bangalore.html,2022-10-06T15:07:17Z,inferred 10 g from the page's per-gram table
+2022-10-17,4651.0,46510.0,https://web.archive.org/web/20221017094339/https://www.goodreturns.in/gold-rates/bangalore.html,2022-10-17T09:43:39Z,inferred 10 g from the page's per-gram table
 2023-02-23,5185.0,51850.0,https://web.archive.org/web/20230304083949/https://www.goodreturns.in/gold-rates/bangalore.html,2023-03-04T08:39:49Z,inferred 10 g from the page's per-gram table
 2023-02-24,5185.0,51850.0,https://web.archive.org/web/20230304083949/https://www.goodreturns.in/gold-rates/bangalore.html,2023-03-04T08:39:49Z,inferred 10 g from the page's per-gram table
 2023-02-25,5155.0,51550.0,https://web.archive.org/web/20230304083949/https://www.goodreturns.in/gold-rates/bangalore.html,2023-03-04T08:39:49Z,inferred 10 g from the page's per-gram table
@@ -895,3 +896,4 @@ date_ist,price_inr_per_g,price_inr_per_10g,source_url,captured_utc,unit_note
 2026-10-28,13201.85,132018.5,https://www.livemint.com/gold-prices/bangalore,2026-10-28T10:46:29Z,inferred 1 g from the price level
 2026-10-29,13120.6,131206.0,https://www.livemint.com/gold-prices/bangalore,2026-10-29T11:03:32Z,inferred 1 g from the price level
 2026-10-30,12954.81,129548.1,https://www.livemint.com/gold-prices/bangalore,2026-10-30T10:59:46Z,inferred 1 g from the price level
+2026-10-31,12684.86,126848.6,https://www.livemint.com/gold-prices/bangalore,2026-10-31T10:33:51Z,inferred 1 g from the price level
